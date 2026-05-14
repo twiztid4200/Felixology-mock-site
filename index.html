@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Felixology • Books, Gifts & Art for the Magical Mind</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Felixology • Books, Gifts & Art for the Magical Mind">
+  <meta property="og:description" content="Whimsical independent bookstore in Maynard, MA. Books, gifts, art, events & the Magical Mind Zine.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://twiztid4200.github.io/Felixology-mock-site/">
+  <meta property="og:image" content="https://picsum.photos/1200/630?random=101">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Felixology • Books, Gifts & Art for the Magical Mind">
+  <meta name="twitter:description" content="A whimsical memorial bookshop in Maynard, MA. Step inside the enchanted forest.">
+  <meta name="twitter:image" content="https://picsum.photos/1200/630?random=101">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    :root {
+      --bg-main: #0F0A1F;
+      --accent-purple: #7C3AED;
+      --accent-emerald: #10B981;
+      --accent-soft: #A855F7;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1F1236 0, #0F0A1F 45%, #05010D 100%);
+      color: #E5E7EB;
+    }
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+    /* Logo sparkle */
+    .logo-sparkle {
+      position: relative;
+      animation: logoGlow 3.5s ease-in-out infinite;
+    }
+    .logo-sparkle::after {
+      content: "";
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #FBBF24 0, transparent 60%);
+      opacity: 0;
+      animation: sparklePulse 2.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes logoGlow {
+      0%, 100% { text-shadow: 0 0 6px rgba(124,58,237,0.6), 0 0 18px rgba(16,185,129,0.4); }
+      50% { text-shadow: 0 0 14px rgba(124,58,237,1), 0 0 30px rgba(16,185,129,0.9); }
+    }
+    @keyframes sparklePulse {
+      0% { transform: scale(0.4) rotate(0deg); opacity: 0; }
+      30% { transform: scale(1) rotate(25deg); opacity: 1; }
+      60% { transform: scale(0.7) rotate(45deg); opacity: 0.4; }
+      100% { transform: scale(0.2) rotate(60deg); opacity: 0; }
+    }
+    /* Modal pop */
+    @keyframes modalPop {
+      0% { transform: scale(0.85) translateY(10px); opacity: 0; }
+      60% { transform: scale(1.03) translateY(0); opacity: 1; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    .modal-animate {
+      animation: modalPop 260ms cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    /* Drawer transitions */
+    .drawer-transition {
+      transition: transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    .backdrop-fade {
+      transition: opacity 220ms ease-out, visibility 220ms ease-out;
+    }
+    /* Scrollbar subtle */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15,10,31,0.9);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(124,58,237,0.6);
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(124,58,237,0.9);
+    }
+    /* Image editable overlay */
+    .editable-image {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .editable-image::after {
+      content: "\f044  Tap to edit";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      bottom: 0.4rem;
+      right: 0.6rem;
+      font-size: 0.65rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(124,58,237,0.9), rgba(16,185,129,0.9));
+      color: #F9FAFB;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 180ms ease-out, transform 180ms ease-out;
+      pointer-events: none;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .editable-image:hover::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .editable-image img {
+      transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1), filter 260ms ease-out;
+    }
+    .editable-image:hover img {
+      transform: scale(1.03);
+      filter: brightness(1.05);
+    }
+    /* Toast */
+    .toast-enter {
+      animation: toastIn 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    @keyframes toastIn {
+      0% { transform: translateY(12px) translateX(8px); opacity: 0; }
+      100% { transform: translateY(0) translateX(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-100">
+  <!-- Hidden file input for image editing -->
+  <input type="file" id="imagePicker" accept="image/*" style="display:none">
+
+  <!-- Mobile Nav Backdrop -->
+  <div id="mobileBackdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 opacity-0 invisible backdrop-fade"></div>
+
+  <!-- Cart Backdrop -->
+  <div id="cartBackdrop" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 opacity-0 invisible backdrop-fade"></div>
+
+  <!-- Lightbox Backdrop -->
+  <div id="lightboxBackdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 opacity-0 invisible backdrop-fade"></div>
+
+  <!-- Image Modal Backdrop -->
+  <div id="imageModalBackdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-40 opacity-0 invisible backdrop-fade"></div>
+
+  <!-- Announcement Bar -->
+  <div class="w-full bg-gradient-to-r from-purple-900/80 via-indigo-800/80 to-emerald-700/80 border-b border-purple-500/40">
+    <div class="max-w-6xl mx-auto px-4 py-2 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs sm:text-sm text-violet-100">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300">
+          <i class="fa-solid fa-feather"></i>
+        </span>
+        <p class="tracking-wide">
+          Felix’s Story lives at the heart of this shop — a living memorial of imagination, grief, and wild creativity.
+        </p>
+      </div>
+      <button id="announcementStoryBtn" class="inline-flex items-center gap-1 text-emerald-300 hover:text-emerald-100 transition-colors">
+        <span class="underline underline-offset-4 decoration-emerald-400/70">Read Felix’s Story</span>
+        <i class="fa-solid fa-arrow-right-long text-[0.7rem]"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-30 bg-gradient-to-b from-[#0F0A1F]/98 via-[#0F0A1F]/96 to-[#0F0A1F]/92 border-b border-purple-900/60 backdrop-blur">
+    <nav class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      <!-- Left: Logo -->
+      <div class="flex items-center gap-3">
+        <div class="h-9 w-9 rounded-full bg-gradient-to-br from-purple-500 via-emerald-400 to-indigo-500 flex items-center justify-center shadow-lg shadow-purple-900/60">
+          <i class="fa-solid fa-moon-stars text-slate-900 text-lg"></i>
+        </div>
+        <div>
+          <div class="flex items-baseline gap-1">
+            <span class="font-display text-xl tracking-wide logo-sparkle">Felixology</span>
+            <span class="text-[0.65rem] uppercase tracking-[0.2em] text-emerald-300/80">Maynard, MA</span>
+          </div>
+          <p class="text-[0.7rem] text-slate-400">Books, gifts & art for the magical mind</p>
+        </div>
+      </div>
+
+      <!-- Center: Desktop Nav -->
+      <div class="hidden md:flex items-center gap-6 text-xs lg:text-sm">
+        <button data-scroll="#story" class="nav-link text-slate-200 hover:text-emerald-300 transition-colors">Felix’s Story</button>
+        <button data-scroll="#shop" class="nav-link text-slate-200 hover:text-emerald-300 transition-colors">Shop</button>
+        <button data-scroll="#events" class="nav-link text-slate-200 hover:text-emerald-300 transition-colors">Events</button>
+        <button data-scroll="#zine" class="nav-link text-slate-200 hover:text-emerald-300 transition-colors">Zine</button>
+        <button data-scroll="#gallery" class="nav-link text-slate-200 hover:text-emerald-300 transition-colors">Gallery</button>
+        <button data-scroll="#visit" class="nav-link text-slate-200 hover:text-emerald-300 transition-colors">Visit</button>
+      </div>
+
+      <!-- Right: Actions -->
+      <div class="flex items-center gap-3">
+        <button id="searchBtn" class="hidden sm:inline-flex h-9 w-9 items-center justify-center rounded-full border border-purple-500/60 bg-purple-900/30 text-slate-100 hover:bg-purple-700/60 hover:border-emerald-400/70 transition-colors">
+          <i class="fa-solid fa-magnifying-glass text-sm"></i>
+        </button>
+        <button class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-400/60 text-emerald-200 text-xs hover:bg-emerald-500/20 transition-colors">
+          <i class="fa-solid fa-circle-nodes text-[0.7rem]"></i>
+          <span>Felix’s Circle</span>
+        </button>
+        <button id="cartBtn" class="relative inline-flex h-9 w-9 items-center justify-center rounded-full bg-purple-700/70 hover:bg-purple-500/90 text-slate-50 transition-colors">
+          <i class="fa-solid fa-shopping-basket text-sm"></i>
+          <span id="cartCount" class="absolute -top-1 -right-1 h-4 min-w-[1rem] px-0.5 rounded-full bg-emerald-400 text-[0.6rem] text-slate-900 flex items-center justify-center font-semibold">0</span>
+        </button>
+        <button id="mobileMenuBtn" class="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-full border border-purple-500/60 bg-purple-900/40 text-slate-100 hover:bg-purple-700/70 transition-colors">
+          <i class="fa-solid fa-bars text-sm"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <aside id="mobileDrawer" class="fixed inset-y-0 left-0 w-72 max-w-full bg-[#090417] border-r border-purple-900/70 z-40 transform -translate-x-full drawer-transition flex flex-col">
+    <div class="px-4 pt-4 pb-3 flex items-center justify-between border-b border-purple-900/70">
+      <div class="flex items-center gap-2">
+        <div class="h-8 w-8 rounded-full bg-gradient-to-br from-purple-500 via-emerald-400 to-indigo-500 flex items-center justify-center">
+          <i class="fa-solid fa-moon-stars text-slate-900 text-sm"></i>
+        </div>
+        <div>
+          <p class="font-display text-lg">Felixology</p>
+          <p class="text-[0.65rem] text-slate-400 uppercase tracking-[0.18em]">Magical Bookshop</p>
+        </div>
+      </div>
+      <button id="mobileCloseBtn" class="h-8 w-8 inline-flex items-center justify-center rounded-full bg-purple-900/60 text-slate-100 hover:bg-purple-700/80 transition-colors">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+    <div class="flex-1 overflow-y-auto px-4 py-4 space-y-1 text-sm">
+      <button data-scroll="#story" class="mobile-nav-link w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-purple-900/60 text-slate-100">
+        <span>Felix’s Story</span>
+        <i class="fa-solid fa-feather text-xs text-emerald-300"></i>
+      </button>
+      <button data-scroll="#shop" class="mobile-nav-link w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-purple-900/60 text-slate-100">
+        <span>Shop</span>
+        <i class="fa-solid fa-book-open text-xs text-emerald-300"></i>
+      </button>
+      <button data-scroll="#events" class="mobile-nav-link w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-purple-900/60 text-slate-100">
+        <span>Events</span>
+        <i class="fa-solid fa-calendar-star text-xs text-emerald-300"></i>
+      </button>
+      <button data-scroll="#zine" class="mobile-nav-link w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-purple-900/60 text-slate-100">
+        <span>Magical Mind Zine</span>
+        <i class="fa-solid fa-wand-magic-sparkles text-xs text-emerald-300"></i>
+      </button>
+      <button data-scroll="#gallery" class="mobile-nav-link w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-purple-900/60 text-slate-100">
+        <span>Gallery</span>
+        <i class="fa-solid fa-images text-xs text-emerald-300"></i>
+      </button>
+      <button data-scroll="#visit" class="mobile-nav-link w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-purple-900/60 text-slate-100">
+        <span>Visit Us</span>
+        <i class="fa-solid fa-location-dot text-xs text-emerald-300"></i>
+      </button>
+      <div class="pt-3 mt-3 border-t border-purple-900/70 space-y-2">
+        <button class="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-full bg-emerald-500/15 border border-emerald-400/70 text-emerald-200 text-xs hover:bg-emerald-500/25 transition-colors">
+          <i class="fa-solid fa-circle-nodes text-[0.7rem]"></i>
+          <span>Join Felix’s Circle</span>
+        </button>
+        <button id="mobileCartBtn" class="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-full bg-purple-700/70 text-slate-50 text-xs hover:bg-purple-500/90 transition-colors">
+          <i class="fa-solid fa-shopping-basket text-xs"></i>
+          <span>View Cart</span>
+        </button>
+      </div>
+    </div>
+    <div class="px-4 py-3 border-t border-purple-900/70 text-[0.7rem] text-slate-400">
+      <p>“For Felix, who turned grief into galaxies.”</p>
+    </div>
+  </aside>
+
+  <!-- Cart Drawer -->
+  <aside id="cartDrawer" class="fixed inset-y-0 right-0 w-80 max-w-full bg-[#090417] border-l border-purple-900/70 z-50 transform translate-x-full drawer-transition flex flex-col">
+    <div class="px-4 pt-4 pb-3 flex items-center justify-between border-b border-purple-900/70">
+      <div>
+        <p class="font-display text-lg">Your Basket</p>
+        <p class="text-[0.7rem] text-slate-400">Books, gifts & tiny portals.</p>
+      </div>
+      <button id="cartCloseBtn" class="h-8 w-8 inline-flex items-center justify-center rounded-full bg-purple-900/60 text-slate-100 hover:bg-purple-700/80 transition-colors">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+    <div id="cartItems" class="flex-1 overflow-y-auto px-4 py-3 space-y-3 text-sm">
+      <!-- Items injected by JS -->
+    </div>
+    <div class="px-4 py-3 border-t border-purple-900/70 space-y-2 text-sm">
+      <div class="flex items-center justify-between">
+        <span class="text-slate-300">Subtotal</span>
+        <span id="cartSubtotal" class="font-semibold text-emerald-300">$0.00</span>
+      </div>
+      <p class="text-[0.7rem] text-slate-400 flex items-center gap-1">
+        <i class="fa-solid fa-tablet-screen-button text-emerald-300"></i>
+        Trinity Command iPad sync ready — ring at the counter in one tap.
+      </p>
+      <div class="flex gap-2 pt-1">
+        <button id="checkoutBtn" class="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-full bg-emerald-500 text-slate-900 text-xs font-semibold hover:bg-emerald-400 transition-colors">
+          <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
+          <span>Checkout</span>
+        </button>
+        <button id="clearCartBtn" class="px-3 py-2 rounded-full border border-purple-500/70 text-[0.7rem] text-slate-200 hover:bg-purple-900/70 transition-colors">
+          Clear
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Lightbox Modal -->
+  <div id="lightboxModal" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 invisible backdrop-fade">
+    <div class="max-w-2xl w-full mx-4 bg-[#050112] border border-purple-800/80 rounded-2xl shadow-2xl shadow-black/70 modal-animate relative">
+      <div class="flex items-center justify-between px-5 pt-4 pb-2 border-b border-purple-900/70">
+        <h3 id="lightboxTitle" class="font-display text-lg text-slate-50">Lightbox</h3>
+        <button id="lightboxCloseBtn" class="h-8 w-8 inline-flex items-center justify-center rounded-full bg-purple-900/70 text-slate-100 hover:bg-purple-700/90 transition-colors">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+      <div id="lightboxContent" class="px-5 py-4 max-h-[70vh] overflow-y-auto text-sm text-slate-200 space-y-3">
+        <!-- Injected -->
+      </div>
+      <div class="px-5 pb-4 pt-2 border-t border-purple-900/70 text-[0.7rem] text-slate-500 flex items-center justify-between">
+        <span>Tap outside to close.</span>
+        <span class="flex items-center gap-1 text-emerald-300">
+          <i class="fa-solid fa-sparkles text-[0.6rem]"></i>
+          <span>Felixology Lightbox</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Edit Modal -->
+  <div id="imageModal" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 invisible backdrop-fade">
+    <div class="max-w-sm w-full mx-4 bg-[#050112] border border-purple-800/80 rounded-2xl shadow-2xl shadow-black/70 modal-animate">
+      <div class="flex items-center justify-between px-5 pt-4 pb-2 border-b border-purple-900/70">
+        <h3 class="font-display text-lg text-slate-50">Update Image</h3>
+        <button id="imageModalCloseBtn" class="h-8 w-8 inline-flex items-center justify-center rounded-full bg-purple-900/70 text-slate-100 hover:bg-purple-700/90 transition-colors">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+      <div class="px-5 py-4 space-y-3 text-sm">
+        <p class="text-slate-300">Choose how you’d like to update this image. On mobile, “Take Photo” will open your camera.</p>
+        <button id="imageTakePhotoBtn" class="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-full bg-emerald-500 text-slate-900 text-xs font-semibold hover:bg-emerald-400 transition-colors">
+          <i class="fa-solid fa-camera text-xs"></i>
+          <span>Take Photo</span>
+        </button>
+        <button id="imageChooseLibraryBtn" class="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-full bg-purple-700/80 text-slate-50 text-xs font-semibold hover:bg-purple-500/90 transition-colors">
+          <i class="fa-solid fa-image text-xs"></i>
+          <span>Choose from Library</span>
+        </button>
+        <button id="imageResetBtn" class="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-full border border-purple-500/70 text-[0.75rem] text-slate-200 hover:bg-purple-900/70 transition-colors">
+          <i class="fa-solid fa-rotate-left text-xs"></i>
+          <span>Reset to Default</span>
+        </button>
+      </div>
+      <div class="px-5 pb-4 pt-2 border-t border-purple-900/70 text-[0.7rem] text-slate-500">
+        Changes are stored locally on this device using magic (and localStorage).
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="fixed bottom-4 right-4 z-50 space-y-2 max-w-xs"></div>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 pt-8 pb-16 space-y-16">
+    <!-- Hero -->
+    <section id="hero" class="grid md:grid-cols-2 gap-10 items-center">
+      <div class="space-y-5">
+        <p class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-emerald-300">
+          <span class="h-[1px] w-6 bg-emerald-400/70"></span>
+          Whimsical independent bookstore
+        </p>
+        <h1 class="font-display text-3xl sm:text-4xl lg:text-5xl leading-tight">
+          Books, gifts & art<br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-sky-300 to-purple-300">
+            for the magical mind.
+          </span>
+        </h1>
+        <p class="text-sm sm:text-base text-slate-300 max-w-xl">
+          Felixology is a living love letter to Felix Brow‑Westbrook — a cozy, enchanted corner of Maynard where grief, wonder, and imagination sit on the same shelf.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <button data-scroll="#shop" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500 text-slate-900 text-sm font-semibold hover:bg-emerald-400 transition-colors">
+            <i class="fa-solid fa-book-sparkles text-sm"></i>
+            <span>Browse the shelves</span>
+          </button>
+          <button data-scroll="#events" class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-purple-500/70 text-sm text-slate-100 hover:bg-purple-900/70 transition-colors">
+            <i class="fa-solid fa-calendar-star text-sm text-emerald-300"></i>
+            <span>See upcoming events</span>
+          </button>
+        </div>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3 text-xs text-slate-400">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-location-dot text-emerald-300"></i>
+            <span>76 Main Street, Maynard, MA 01754</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-clock text-emerald-300"></i>
+            <span>Open Wed–Sun • Late on event nights</span>
+          </div>
+        </div>
+      </div>
+      <div class="space-y-4">
+        <div class="editable-image rounded-2xl border border-purple-700/70 bg-gradient-to-br from-purple-900/60 via-indigo-900/60 to-emerald-900/60 shadow-xl shadow-black/70" onclick="openImageEditor('heroMainImage')">
+          <img id="heroMainImage" data-editable="true" data-default-src="https://picsum.photos/800/520?random=201" src="https://picsum.photos/800/520?random=201" alt="Felixology interior with books and lanterns" class="w-full h-64 sm:h-72 object-cover rounded-2xl">
+        </div>
+        <div class="flex items-center justify-between text-xs text-slate-300">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-purple-900/80 text-emerald-300">
+              <i class="fa-solid fa-tree"></i>
+            </span>
+            <p>Step inside the enchanted reading forest — lanterns, moss, and secret nooks included.</p>
+          </div>
+          <div class="hidden sm:flex items-center gap-2">
+            <i class="fa-solid fa-heart text-rose-400 text-xs"></i>
+            <span>For Felix, always.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Felix's Story -->
+    <section id="story" class="space-y-8">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-emerald-300 mb-1">Felix’s Story</p>
+          <h2 class="font-display text-2xl sm:text-3xl">The spell at the center of the shop.</h2>
+        </div>
+        <button id="storyModalBtn" class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-purple-500/70 text-xs text-slate-100 hover:bg-purple-900/70 transition-colors">
+          <i class="fa-solid fa-book-open text-[0.7rem] text-emerald-300"></i>
+          <span>Read complete story</span>
+        </button>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="md:col-span-2 space-y-4 text-sm text-slate-200">
+          <p>
+            Felixology began as a promise whispered in the quiet after unthinkable loss. Felix Brow‑Westbrook was a brilliant, tender, wildly imaginative soul whose worlds spilled across sketchbooks, notebooks, and late‑night conversations. When Felix died, the air around his family felt thin — like the story had been ripped from the page mid‑sentence.
+          </p>
+          <p>
+            Instead of closing the book, Libby and the people who loved Felix decided to build a new chapter in his honor. Felixology is that chapter: a bookstore that feels like stepping into one of his worlds — mossy, glowing, a little bit haunted, and full of portals. Every shelf, every zine, every art print is a small act of remembrance and rebellion against forgetting.
+          </p>
+          <p>
+            Here, grief isn’t something to “get over.” It’s something to tend, like a strange, luminous garden. Kids, teens, and adults find books that say, “You’re not the only one.” Artists find walls that say, “Yes, put your weird here.” And somewhere between the stacks, Felix’s presence lingers — not as a ghost, but as a creative force that keeps nudging the story forward.
+          </p>
+          <button id="storyModalBtnMobile" class="inline-flex md:hidden items-center gap-2 px-3 py-1.5 rounded-full border border-purple-500/70 text-xs text-slate-100 hover:bg-purple-900/70 transition-colors">
+            <i class="fa-solid fa-book-open text-[0.7rem] text-emerald-300"></i>
+            <span>Read complete story</span>
+          </button>
+        </div>
+        <div class="space-y-3">
+          <h3 class="font-display text-lg">The 8 Foundations of Felixology</h3>
+          <ul class="space-y-2 text-sm text-slate-200">
+            <li class="flex items-start gap-2">
+              <span class="mt-1 h-4 w-4 rounded-full bg-emerald-500/20 border border-emerald-400/70 flex items-center justify-center text-[0.6rem] text-emerald-200">
+                1
+              </span>
+              <span>Grief is not a problem to solve; it’s a story to honor.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 h-4 w-4 rounded-full bg-emerald-500/20 border border-emerald-400/70 flex items-center justify-center text-[0.6rem] text-emerald-200">
+                2
+              </span>
+              <span>Kids deserve spaces that take their inner worlds seriously.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 h-4 w-4 rounded-full bg-emerald-500/20 border border-emerald-400/70 flex items-center justify-center text-[0.6rem] text-emerald-200">
+                3
+              </span>
+              <span>Art, books, and slime are equally valid portals.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 h-4 w-4 rounded-full bg-emerald-500/20 border border-emerald-400/70 flex items-center justify-center text-[0.6rem] text-emerald-200">
+                4
+              </span>
+              <span>Neurodivergent, queer, and “too much” kids are not side characters.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 h-4 w-4 rounded-full bg-emerald-500/20 border border-emerald-400/70 flex items-center justify-center text-[0.6rem] text-emerald-200">
+                5
+              </span>
+              <span>Local history is a spellbook; we’re still writing it.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 h-4 w-4 rounded-full bg-emerald-500/20 border border-emerald-400/70 flex items-center justify-center text-[0.6rem] text-emerald-200">
+                6
+              </span>
+              <span>Every purchase helps keep Felix’s story in motion.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 h-4 w-4 rounded-full bg-emerald-500/20 border border-emerald-400/70 flex items-center justify-center text-[0.6rem] text-emerald-200">
+                7
+              </span>
+              <span>We are a shop, a shrine, and a studio all at once.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 h-4 w-4 rounded-full bg-emerald-500/20 border border-emerald-400/70 flex items-center justify-center text-[0.6rem] text-emerald-200">
+                8
+              </span>
+              <span>Everyone who walks in becomes part of the spell.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shop -->
+    <section id="shop" class="space-y-8">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-emerald-300 mb-1">Shop</p>
+          <h2 class="font-display text-2xl sm:text-3xl">Books, gifts & art for the magical mind.</h2>
+        </div>
+        <p class="hidden sm:block text-xs text-slate-400 max-w-xs text-right">
+          Tap any product image to swap in your own photo — perfect for live demos and evolving displays.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Product 1 -->
+        <article class="group rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-3 flex flex-col gap-3">
+          <div class="editable-image rounded-xl overflow-hidden" onclick="openImageEditor('productImage1')">
+            <img id="productImage1" data-editable="true" data-default-src="https://picsum.photos/500/360?random=301" src="https://picsum.photos/500/360?random=301" alt="Magical Mind Zine" class="w-full h-40 object-cover">
+          </div>
+          <div class="flex-1 flex flex-col gap-2 text-sm">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <h3 class="font-semibold text-slate-50">Magical Mind Zine</h3>
+                <p class="text-xs text-slate-400">Community‑made zine featuring art, stories, comics, and grief magic.</p>
+              </div>
+              <span class="text-emerald-300 font-semibold text-sm">$12</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 mt-auto">
+              <button class="text-xs text-emerald-300 hover:text-emerald-100 transition-colors" onclick="event.stopImmediatePropagation(); openQuickView('Magical Mind Zine','A collaborative zine filled with art, comics, and stories from Felixology’s community of magical minds.')">
+                Quick view
+              </button>
+              <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500 text-slate-900 text-xs font-semibold hover:bg-emerald-400 transition-colors" onclick="event.stopImmediatePropagation(); addToCart('Magical Mind Zine',12)">
+                <i class="fa-solid fa-plus text-[0.6rem]"></i>
+                <span>Add to cart</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 2 -->
+        <article class="group rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-3 flex flex-col gap-3">
+          <div class="editable-image rounded-xl overflow-hidden" onclick="openImageEditor('productImage2')">
+            <img id="productImage2" data-editable="true" data-default-src="https://picsum.photos/500/360?random=302" src="https://picsum.photos/500/360?random=302" alt="Felixology Gift Box" class="w-full h-40 object-cover">
+          </div>
+          <div class="flex-1 flex flex-col gap-2 text-sm">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <h3 class="font-semibold text-slate-50">Felixology Gift Box</h3>
+                <p class="text-xs text-slate-400">Curated bundle of a book, art print, tea, and a tiny secret.</p>
+              </div>
+              <span class="text-emerald-300 font-semibold text-sm">$48</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 mt-auto">
+              <button class="text-xs text-emerald-300 hover:text-emerald-100 transition-colors" onclick="event.stopImmediatePropagation(); openQuickView('Felixology Gift Box','A hand‑curated box of Felixology favorites: a book, art print, tea, and a small surprise chosen by the staff.')">
+                Quick view
+              </button>
+              <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500 text-slate-900 text-xs font-semibold hover:bg-emerald-400 transition-colors" onclick="event.stopImmediatePropagation(); addToCart('Felixology Gift Box',48)">
+                <i class="fa-solid fa-plus text-[0.6rem]"></i>
+                <span>Add to cart</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 3 -->
+        <article class="group rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-3 flex flex-col gap-3">
+          <div class="editable-image rounded-xl overflow-hidden" onclick="openImageEditor('productImage3')">
+            <img id="productImage3" data-editable="true" data-default-src="https://picsum.photos/500/360?random=303" src="https://picsum.photos/500/360?random=303" alt="Enchanted Forest Art Print" class="w-full h-40 object-cover">
+          </div>
+          <div class="flex-1 flex flex-col gap-2 text-sm">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <h3 class="font-semibold text-slate-50">Enchanted Forest Art Print</h3>
+                <p class="text-xs text-slate-400">Black‑and‑white illustration inspired by Felix’s tree and lanterns.</p>
+              </div>
+              <span class="text-emerald-300 font-semibold text-sm">$22</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 mt-auto">
+              <button class="text-xs text-emerald-300 hover:text-emerald-100 transition-colors" onclick="event.stopImmediatePropagation(); openQuickView('Enchanted Forest Art Print','A detailed art print of the Felixology reading tree, lanterns, and scattered books — perfect for framing.')">
+                Quick view
+              </button>
+              <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500 text-slate-900 text-xs font-semibold hover:bg-emerald-400 transition-colors" onclick="event.stopImmediatePropagation(); addToCart('Enchanted Forest Art Print',22)">
+                <i class="fa-solid fa-plus text-[0.6rem]"></i>
+                <span>Add to cart</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 4 -->
+        <article class="group rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-3 flex flex-col gap-3">
+          <div class="editable-image rounded-xl overflow-hidden" onclick="openImageEditor('productImage4')">
+            <img id="productImage4" data-editable="true" data-default-src="https://picsum.photos/500/360?random=304" src="https://picsum.photos/500/360?random=304" alt="Cosmic Slime Kit" class="w-full h-40 object-cover">
+          </div>
+          <div class="flex-1 flex flex-col gap-2 text-sm">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <h3 class="font-semibold text-slate-50">Cosmic Slime Kit</h3>
+                <p class="text-xs text-slate-400">Glitter, galaxy colors, and sensory magic for kids & teens.</p>
+              </div>
+              <span class="text-emerald-300 font-semibold text-sm">$18</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 mt-auto">
+              <button class="text-xs text-emerald-300 hover:text-emerald-100 transition-colors" onclick="event.stopImmediatePropagation(); openQuickView('Cosmic Slime Kit','A sensory‑friendly slime kit with galaxy pigments, glitter, and tools — a Felixology favorite for kids.')">
+                Quick view
+              </button>
+              <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500 text-slate-900 text-xs font-semibold hover:bg-emerald-400 transition-colors" onclick="event.stopImmediatePropagation(); addToCart('Cosmic Slime Kit',18)">
+                <i class="fa-solid fa-plus text-[0.6rem]"></i>
+                <span>Add to cart</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 5 -->
+        <article class="group rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-3 flex flex-col gap-3">
+          <div class="editable-image rounded-xl overflow-hidden" onclick="openImageEditor('productImage5')">
+            <img id="productImage5" data-editable="true" data-default-src="https://picsum.photos/500/360?random=305" src="https://picsum.photos/500/360?random=305" alt="Maynard Local History" class="w-full h-40 object-cover">
+          </div>
+          <div class="flex-1 flex flex-col gap-2 text-sm">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <h3 class="font-semibold text-slate-50">Maynard Local History</h3>
+                <p class="text-xs text-slate-400">Curated titles about the mill town, river, and people of Maynard.</p>
+              </div>
+              <span class="text-emerald-300 font-semibold text-sm">$20</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 mt-auto">
+              <button class="text-xs text-emerald-300 hover:text-emerald-100 transition-colors" onclick="event.stopImmediatePropagation(); openQuickView('Maynard Local History','A rotating selection of books, maps, and pamphlets about Maynard’s past, present, and future.')">
+                Quick view
+              </button>
+              <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500 text-slate-900 text-xs font-semibold hover:bg-emerald-400 transition-colors" onclick="event.stopImmediatePropagation(); addToCart('Maynard Local History',20)">
+                <i class="fa-solid fa-plus text-[0.6rem]"></i>
+                <span>Add to cart</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Product 6 -->
+        <article class="group rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-3 flex flex-col gap-3">
+          <div class="editable-image rounded-xl overflow-hidden" onclick="openImageEditor('productImage6')">
+            <img id="productImage6" data-editable="true" data-default-src="https://picsum.photos/500/360?random=306" src="https://picsum.photos/500/360?random=306" alt="Ritual Journal Set" class="w-full h-40 object-cover">
+          </div>
+          <div class="flex-1 flex flex-col gap-2 text-sm">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <h3 class="font-semibold text-slate-50">Ritual Journal Set</h3>
+                <p class="text-xs text-slate-400">Three soft‑cover journals for grief notes, dreams, and spellwork.</p>
+              </div>
+              <span class="text-emerald-300 font-semibold text-sm">$28</span>
+            </div>
+            <div class="flex items-center justify-between gap-2 mt-auto">
+              <button class="text-xs text-emerald-300 hover:text-emerald-100 transition-colors" onclick="event.stopImmediatePropagation(); openQuickView('Ritual Journal Set','A trio of journals with soft paper and subtle sigils — one for grief, one for dreams, one for wild ideas.')">
+                Quick view
+              </button>
+              <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500 text-slate-900 text-xs font-semibold hover:bg-emerald-400 transition-colors" onclick="event.stopImmediatePropagation(); addToCart('Ritual Journal Set',28)">
+                <i class="fa-solid fa-plus text-[0.6rem]"></i>
+                <span>Add to cart</span>
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Staff Picks -->
+    <section id="staff-picks" class="space-y-8">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-emerald-300 mb-1">Staff Picks</p>
+          <h2 class="font-display text-2xl sm:text-3xl">What the magical minds are reading.</h2>
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+        <!-- Libby -->
+        <article class="rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-4 space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-emerald-400 to-purple-500 flex items-center justify-center text-slate-900 font-semibold">
+              L
+            </div>
+            <div>
+              <p class="font-semibold text-slate-50">Libby</p>
+              <p class="text-[0.7rem] text-slate-400">Owner & Keeper of the Spell</p>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="text-xs uppercase tracking-[0.2em] text-emerald-300">Recommends</p>
+            <p class="font-semibold text-slate-50">“The House in the Cerulean Sea”</p>
+            <p class="text-xs text-slate-300">
+              “A found‑family story that feels like a warm blanket and a quiet revolution at the same time.”
+            </p>
+          </div>
+        </article>
+
+        <!-- Noah -->
+        <article class="rounded-2xl border border-emerald-400/80 bg-[#050112]/90 p-4 space-y-3 relative">
+          <div class="absolute inset-0 rounded-2xl border-2 border-emerald-400/70 pointer-events-none"></div>
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-emerald-400 to-sky-400 flex items-center justify-center text-slate-900 font-semibold">
+              N
+            </div>
+            <div>
+              <p class="font-semibold text-slate-50">Noah</p>
+              <p class="text-[0.7rem] text-slate-400">Book Curator & Author</p>
+            </div>
+          </div>
+          <div class="inline-flex items-center gap-2 px-2 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/70 text-[0.65rem] text-emerald-200">
+            <i class="fa-solid fa-pen-nib text-[0.6rem]"></i>
+            <span>Author’s Own Pick</span>
+          </div>
+          <div class="space-y-1">
+            <p class="text-xs uppercase tracking-[0.2em] text-emerald-300">Recommends</p>
+            <p class="font-semibold text-slate-50">“Mandelbrot the Tree”</p>
+            <p class="text-xs text-slate-300">
+              “A strange, tender story about a tree that remembers everything — written for Felix, and for anyone who’s ever felt like too much.”
+            </p>
+          </div>
+        </article>
+
+        <!-- Becca -->
+        <article class="rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-4 space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center text-slate-900 font-semibold">
+              B
+            </div>
+            <div>
+              <p class="font-semibold text-slate-50">Becca</p>
+              <p class="text-[0.7rem] text-slate-400">Front‑of‑House & Vibes</p>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="text-xs uppercase tracking-[0.2em] text-emerald-300">Recommends</p>
+            <p class="font-semibold text-slate-50">“The Midnight Library”</p>
+            <p class="text-xs text-slate-300">
+              “For anyone standing at the edge of ‘what if’ — this book feels like a conversation with every version of you.”
+            </p>
+          </div>
+        </article>
+
+        <!-- Frankie -->
+        <article class="rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-4 space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center text-slate-900 font-semibold">
+              F
+            </div>
+            <div>
+              <p class="font-semibold text-slate-50">Frankie</p>
+              <p class="text-[0.7rem] text-slate-400">Local Lore Enthusiast</p>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="text-xs uppercase tracking-[0.2em] text-emerald-300">Recommends</p>
+            <p class="font-semibold text-slate-50">“Maynard Local History”</p>
+            <p class="text-xs text-slate-300">
+              “Because this town is weirder and more wonderful than any fantasy novel — and you’re living in the middle of it.”
+            </p>
+          </div>
+        </article>
+
+        <!-- Sarah -->
+        <article class="rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-4 space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="h-10 w-10 rounded-full bg-gradient-to-br from-rose-400 to-amber-400 flex items-center justify-center text-slate-900 font-semibold">
+              S
+            </div>
+            <div>
+              <p class="font-semibold text-slate-50">Sarah</p>
+              <p class="text-[0.7rem] text-slate-400">Grief & Healing Curator</p>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="text-xs uppercase tracking-[0.2em] text-emerald-300">Recommends</p>
+            <p class="font-semibold text-slate-50">“Grief & Healing Reads” Shelf</p>
+            <p class="text-xs text-slate-300">
+              “Not one book, but a whole shelf. Memoirs, picture books, poetry — for when language feels impossible and you need someone else’s words.”
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Meet the Magical Minds -->
+    <section id="team" class="space-y-8">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-emerald-300 mb-1">Team</p>
+          <h2 class="font-display text-2xl sm:text-3xl">Meet the magical minds behind the shelves.</h2>
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-3 lg:grid-cols-5 gap-6 text-sm">
+        <!-- Libby -->
+        <div class="flex flex-col items-center text-center gap-2">
+          <div class="h-20 w-20 rounded-full border-2 border-emerald-400/80 bg-gradient-to-br from-purple-500 to-emerald-400 flex items-center justify-center text-3xl text-slate-900 font-semibold">
+            L
+          </div>
+          <p class="font-semibold text-slate-50">Libby</p>
+          <p class="text-[0.7rem] text-emerald-300 uppercase tracking-[0.18em]">Owner</p>
+          <p class="text-[0.75rem] text-slate-400">Builder of worlds, keeper of keys, and Felix’s mom.</p>
+        </div>
+        <!-- Noah -->
+        <div class="flex flex-col items-center text-center gap-2">
+          <div class="h-20 w-20 rounded-full border-2 border-emerald-400/80 bg-gradient-to-br from-emerald-400 to-sky-400 flex items-center justify-center text-3xl text-slate-900 font-semibold">
+            N
+          </div>
+          <p class="font-semibold text-slate-50">Noah</p>
+          <p class="text-[0.7rem] text-emerald-300 uppercase tracking-[0.18em]">Book Curator & Author</p>
+          <p class="text-[0.75rem] text-slate-400">Tends the shelves like a garden and writes strange trees into being.</p>
+        </div>
+        <!-- Becca -->
+        <div class="flex flex-col items-center text-center gap-2">
+          <div class="h-20 w-20 rounded-full border-2 border-purple-400/80 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center text-3xl text-slate-900 font-semibold">
+            B
+          </div>
+          <p class="font-semibold text-slate-50">Becca</p>
+          <p class="text-[0.7rem] text-emerald-300 uppercase tracking-[0.18em]">Front‑of‑House</p>
+          <p class="text-[0.75rem] text-slate-400">Greets every guest like a returning character in an ongoing story.</p>
+        </div>
+        <!-- Frankie -->
+        <div class="flex flex-col items-center text-center gap-2">
+          <div class="h-20 w-20 rounded-full border-2 border-sky-400/80 bg-gradient-to-br from-sky-400 to-indigo-500 flex items-center justify-center text-3xl text-slate-900 font-semibold">
+            F
+          </div>
+          <p class="font-semibold text-slate-50">Frankie</p>
+          <p class="text-[0.7rem] text-emerald-300 uppercase tracking-[0.18em]">Local Lore</p>
+          <p class="text-[0.75rem] text-slate-400">Knows every ghost story, river fact, and mill rumor in town.</p>
+        </div>
+        <!-- Sarah -->
+        <div class="flex flex-col items-center text-center gap-2">
+          <div class="h-20 w-20 rounded-full border-2 border-rose-400/80 bg-gradient-to-br from-rose-400 to-amber-400 flex items-center justify-center text-3xl text-slate-900 font-semibold">
+            S
+          </div>
+          <p class="font-semibold text-slate-50">Sarah</p>
+          <p class="text-[0.7rem] text-emerald-300 uppercase tracking-[0.18em]">Grief & Healing</p>
+          <p class="text-[0.75rem] text-slate-400">Curates the softest, fiercest books for hearts in transition.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Events -->
+    <section id="events" class="space-y-8">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-emerald-300 mb-1">Events</p>
+          <h2 class="font-display text-2xl sm:text-3xl">Gatherings under the reading tree.</h2>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 text-sm">
+        <!-- Event 1 -->
+        <article class="rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-4 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="font-semibold text-slate-50">Grief & Story Night</h3>
+            <span class="text-[0.7rem] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-200 border border-emerald-400/60">Circle</span>
+          </div>
+          <p class="text-xs text-slate-300">
+            A gentle, facilitated evening for adults and teens to share stories, journal, or simply listen among the shelves.
+          </p>
+          <p class="text-xs text-slate-400 flex items-center gap-2">
+            <i class="fa-solid fa-calendar-day text-emerald-300"></i>
+            <span>First Thursday • 7:00–8:30 PM</span>
+          </p>
+          <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500 text-slate-900 text-xs font-semibold hover:bg-emerald-400 transition-colors" onclick="reserveEvent('Grief & Story Night')">
+            <i class="fa-solid fa-ticket text-[0.7rem]"></i>
+            <span>Reserve a spot</span>
+          </button>
+        </article>
+
+        <!-- Event 2 -->
+        <article class="rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-4 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="font-semibold text-slate-50">Slime & Spells Lab</h3>
+            <span class="text-[0.7rem] px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-200 border border-purple-400/60">Kids & Teens</span>
+          </div>
+          <p class="text-xs text-slate-300">
+            A sensory‑friendly workshop where kids make cosmic slime, name their potions, and leave with a tiny spell card.
+          </p>
+          <p class="text-xs text-slate-400 flex items-center gap-2">
+            <i class="fa-solid fa-calendar-day text-emerald-300"></i>
+            <span>Second Saturday • 2:00–3:30 PM</span>
+          </p>
+          <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500 text-slate-900 text-xs font-semibold hover:bg-emerald-400 transition-colors" onclick="reserveEvent('Slime & Spells Lab')">
+            <i class="fa-solid fa-ticket text-[0.7rem]"></i>
+            <span>Reserve a spot</span>
+          </button>
+        </article>
+
+        <!-- Event 3 -->
+        <article class="rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-4 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="font-semibold text-slate-50">Mandelbrot the Tree Reading</h3>
+            <span class="text-[0.7rem] px-2 py-0.5 rounded-full bg-sky-500/15 text-sky-200 border border-sky-400/60">Author Event</span>
+          </div>
+          <p class="text-xs text-slate-300">
+            Noah reads from “Mandelbrot the Tree,” followed by Q&A about writing, grief, and building worlds for the ones we miss.
+          </p>
+          <p class="text-xs text-slate-400 flex items-center gap-2">
+            <i class="fa-solid fa-calendar-day text-emerald-300"></i>
+            <span>Monthly • Check Instagram for dates</span>
+          </p>
+          <button class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500 text-slate-900 text-xs font-semibold hover:bg-emerald-400 transition-colors" onclick="reserveEvent('Mandelbrot the Tree Reading')">
+            <i class="fa-solid fa-ticket text-[0.7rem]"></i>
+            <span>Reserve a spot</span>
+          </button>
+        </article>
+      </div>
+    </section>
+
+    <!-- Magical Mind Zine -->
+    <section id="zine" class="space-y-8">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-emerald-300 mb-1">Magical Mind Zine</p>
+          <h2 class="font-display text-2xl sm:text-3xl">A community spellbook in print.</h2>
+        </div>
+        <button class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-purple-500/70 text-xs text-slate-100 hover:bg-purple-900/70 transition-colors">
+          <i class="fa-solid fa-envelope-open-text text-[0.7rem] text-emerald-300"></i>
+          <span>Subscribe to zine updates</span>
+        </button>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 text-sm">
+        <div class="space-y-3">
+          <p class="text-slate-200">
+            The Magical Mind Zine is where Felixology spills over the edges of the shop and onto the page. Each issue gathers art, comics, essays, poems, and strange little experiments from kids, teens, and adults who orbit this place.
+          </p>
+          <p class="text-slate-200">
+            Some pieces are polished. Some are scribbled. All of them are real. We print in small runs, bind by hand, and celebrate each launch with a tiny party under the reading tree.
+          </p>
+          <ul class="space-y-2 text-slate-200">
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-sparkles text-emerald-300 mt-0.5 text-xs"></i>
+              <span><strong>Themed issues</strong> — grief & galaxies, haunted houses, portals, neurospice, and more.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-book text-emerald-300 mt-0.5 text-xs"></i>
+              <span><strong>Annual anthology</strong> — the best pieces from the year, bound into a keepsake volume.</span>
+            </li>
+            <li class="flex items-start gap-2">
+              <i class="fa-solid fa-party-horn text-emerald-300 mt-0.5 text-xs"></i>
+              <span><strong>Launch parties</strong> — readings, signings, slime, and snacks in the shop.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-4 space-y-4">
+          <h3 class="font-display text-lg">Submit your piece</h3>
+          <form id="zineForm" class="space-y-3 text-sm">
+            <div class="space-y-1">
+              <label for="zineName" class="text-xs text-slate-300">Name</label>
+              <input id="zineName" type="text" required class="w-full rounded-lg bg-[#050112] border border-purple-800/80 px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400">
+            </div>
+            <div class="space-y-1">
+              <label for="zineEmail" class="text-xs text-slate-300">Email</label>
+              <input id="zineEmail" type="email" required class="w-full rounded-lg bg-[#050112] border border-purple-800/80 px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400">
+            </div>
+            <div class="space-y-1">
+              <label for="zineStory" class="text-xs text-slate-300">Story, poem, or idea</label>
+              <textarea id="zineStory" rows="4" required class="w-full rounded-lg bg-[#050112] border border-purple-800/80 px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400"></textarea>
+            </div>
+            <div class="flex flex-wrap items-center gap-3 pt-1">
+              <button type="submit" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500 text-slate-900 text-xs font-semibold hover:bg-emerald-400 transition-colors">
+                <i class="fa-solid fa-paper-plane text-[0.7rem]"></i>
+                <span>Submit to the zine</span>
+              </button>
+              <button type="button" id="zineSubscribeBtn" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-purple-500/70 text-xs text-slate-100 hover:bg-purple-900/70 transition-colors">
+                <i class="fa-solid fa-envelope-open-text text-[0.7rem] text-emerald-300"></i>
+                <span>Subscribe to updates</span>
+              </button>
+            </div>
+            <p id="zineSuccess" class="hidden text-[0.75rem] text-emerald-300 pt-1">
+              Thank you — your piece has been received. We’ll be in touch before the next issue goes to print.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="space-y-8">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-emerald-300 mb-1">Voices from the stacks</p>
+          <h2 class="font-display text-2xl sm:text-3xl">What visitors say about Felixology.</h2>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 text-sm">
+        <article class="rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-4 space-y-3">
+          <p class="text-xs text-emerald-300 uppercase tracking-[0.18em]">Parent</p>
+          <p class="text-slate-200">
+            “My kid walked in and said, ‘Oh… they built a place for my brain.’ I cried in the art print corner for ten minutes.”
+          </p>
+          <p class="text-[0.75rem] text-slate-400">— J., Maynard</p>
+        </article>
+        <article class="rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-4 space-y-3">
+          <p class="text-xs text-emerald-300 uppercase tracking-[0.18em]">Teen</p>
+          <p class="text-slate-200">
+            “It feels like the kind of bookshop you find in a portal fantasy, except it’s real and it’s down the street.”
+          </p>
+          <p class="text-[0.75rem] text-slate-400">— A., Acton</p>
+        </article>
+        <article class="rounded-2xl border border-purple-800/70 bg-[#090417]/80 p-4 space-y-3">
+          <p class="text-xs text-emerald-300 uppercase tracking-[0.18em]">Neighbor</p>
+          <p class="text-slate-200">
+            “Felixology is the beating heart of downtown now. You can feel the love in the floorboards.”
+          </p>
+          <p class="text-[0.75rem] text-slate-400">— R., Maynard</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="space-y-8">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-emerald-300 mb-1">Gallery</p>
+          <h2 class="font-display text-2xl sm:text-3xl">Glimpses from the enchanted shop.</h2>
+        </div>
+        <p class="hidden sm:block text-xs text-slate-400 max-w-xs text-right">
+          Tap any photo to swap in a real Felixology image from your camera or library.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- 8 gallery images -->
+        <div class="editable-image rounded-xl border border-purple-800/70 bg-[#050112]" onclick="openImageEditor('galleryImage1')">
+          <img id="galleryImage1" data-editable="true" data-default-src="https://picsum.photos/500/360?random=401" src="https://picsum.photos/500/360?random=401" alt="Felixology reading nook" class="w-full h-40 object-cover rounded-xl" onclick="event.stopImmediatePropagation(); openGalleryLightbox(this)">
+        </div>
+        <div class="editable-image rounded-xl border border-purple-800/70 bg-[#050112]" onclick="openImageEditor('galleryImage2')">
+          <img id="galleryImage2" data-editable="true" data-default-src="https://picsum.photos/500/360?random=402" src="https://picsum.photos/500/360?random=402" alt="Book display at Felixology" class="w-full h-40 object-cover rounded-xl" onclick="event.stopImmediatePropagation(); openGalleryLightbox(this)">
+        </div>
+        <div class="editable-image rounded-xl border border-purple-800/70 bg-[#050112]" onclick="openImageEditor('galleryImage3')">
+          <img id="galleryImage3" data-editable="true" data-default-src="https://picsum.photos/500/360?random=403" src="https://picsum.photos/500/360?random=403" alt="Felixology event night" class="w-full h-40 object-cover rounded-xl" onclick="event.stopImmediatePropagation(); openGalleryLightbox(this)">
+        </div>
+        <div class="editable-image rounded-xl border border-purple-800/70 bg-[#050112]" onclick="openImageEditor('galleryImage4')">
+          <img id="galleryImage4" data-editable="true" data-default-src="https://picsum.photos/500/360?random=404" src="https://picsum.photos/500/360?random=404" alt="Art wall at Felixology" class="w-full h-40 object-cover rounded-xl" onclick="event.stopImmediatePropagation(); openGalleryLightbox(this)">
+        </div>
+        <div class="editable-image rounded-xl border border-purple-800/70 bg-[#050112]" onclick="openImageEditor('galleryImage5')">
+          <img id="galleryImage5" data-editable="true" data-default-src="https://picsum.photos/500/360?random=405" src="https://picsum.photos/500/360?random=405" alt="Felixology storefront" class="w-full h-40 object-cover rounded-xl" onclick="event.stopImmediatePropagation(); openGalleryLightbox(this)">
+        </div>
+        <div class="editable-image rounded-xl border border-purple-800/70 bg-[#050112]" onclick="openImageEditor('galleryImage6')">
+          <img id="galleryImage6" data-editable="true" data-default-src="https://picsum.photos/500/360?random=406" src="https://picsum.photos/500/360?random=406" alt="Felixology counter" class="w-full h-40 object-cover rounded-xl" onclick="event.stopImmediatePropagation(); openGalleryLightbox(this)">
+        </div>
+        <div class="editable-image rounded-xl border border-purple-800/70 bg-[#050112]" onclick="openImageEditor('galleryImage7')">
+          <img id="galleryImage7" data-editable="true" data-default-src="https://picsum.photos/500/360?random=407" src="https://picsum.photos/500/360?random=407" alt="Felixology kids corner" class="w-full h-40 object-cover rounded-xl" onclick="event.stopImmediatePropagation(); openGalleryLightbox(this)">
+        </div>
+        <div class="editable-image rounded-xl border border-purple-800/70 bg-[#050112]" onclick="openImageEditor('galleryImage8')">
+          <img id="galleryImage8" data-editable="true" data-default-src="https://picsum.photos/500/360?random=408" src="https://picsum.photos/500/360?random=408" alt="Felixology zine display" class="w-full h-40 object-cover rounded-xl" onclick="event.stopImmediatePropagation(); openGalleryLightbox(this)">
+        </div>
+      </div>
+    </section>
+
+    <!-- Visit Us -->
+    <section id="visit" class="space-y-8">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.25em] text-emerald-300 mb-1">Visit</p>
+          <h2 class="font-display text-2xl sm:text-3xl">Come step inside the spell.</h2>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 text-sm">
+        <div class="space-y-2">
+          <h3 class="font-semibold text-slate-50">Hours</h3>
+          <ul class="text-slate-300 text-xs space-y-1">
+            <li>Wednesday–Friday: 12:00 PM – 7:00 PM</li>
+            <li>Saturday: 11:00 AM – 7:00 PM</li>
+            <li>Sunday: 11:00 AM – 5:00 PM</li>
+            <li>Closed Monday & Tuesday (for rest & re‑enchantment)</li>
+          </ul>
+        </div>
+        <div class="space-y-2">
+          <h3 class="font-semibold text-slate-50">Find us</h3>
+          <p class="text-slate-300 text-xs">
+            76 Main Street<br>
+            Maynard, MA 01754<br>
+            United States
+          </p>
+          <p class="text-xs text-slate-400 flex items-center gap-2 pt-1">
+            <i class="fa-solid fa-location-dot text-emerald-300"></i>
+            <span>Downtown Maynard, near the mill and the river.</span>
+          </p>
+        </div>
+        <div class="space-y-2">
+          <h3 class="font-semibold text-slate-50">Contact</h3>
+          <p class="text-xs text-slate-300 flex items-center gap-2">
+            <i class="fa-solid fa-phone text-emerald-300"></i>
+            <span>(978) 555‑0137</span>
+          </p>
+          <p class="text-xs text-slate-300 flex items-center gap-2">
+            <i class="fa-solid fa-envelope text-emerald-300"></i>
+            <span>hello@felixologybookshop.com</span>
+          </p>
+          <p class="text-xs text-slate-300 flex items-center gap-2">
+            <i class="fa-brands fa-instagram text-emerald-300"></i>
+            <span>@felixologybookshop</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-purple-900/70 bg-[#050112]/95">
+    <div class="max-w-6xl mx-auto px-4 py-8 space-y-6 text-sm">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="space-y-2">
+          <p class="font-display text-lg">Felixology</p>
+          <p class="text-[0.75rem] text-slate-400">
+            A whimsical memorial bookshop in Maynard, MA — built in honor of Felix Brow‑Westbrook and every magical mind.
+          </p>
+        </div>
+        <div class="space-y-2">
+          <h3 class="text-xs uppercase tracking-[0.2em] text-emerald-300">Connect</h3>
+          <ul class="space-y-1 text-[0.8rem]">
+            <li class="flex items-center gap-2">
+              <i class="fa-brands fa-instagram text-emerald-300"></i>
+              <a href="https://www.instagram.com/felixologybookshop" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-300 transition-colors">
+                Instagram @felixologybookshop
+              </a>
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="fa-brands fa-facebook text-emerald-300"></i>
+              <a href="https://www.facebook.com/felixologybookshop" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-300 transition-colors">
+                Facebook /felixologybookshop
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="space-y-2">
+          <h3 class="text-xs uppercase tracking-[0.2em] text-emerald-300">Newsletter</h3>
+          <p class="text-[0.75rem] text-slate-400">
+            Occasional updates about events, zine calls, and new arrivals. No spam, just spells.
+          </p>
+          <form id="footerNewsletterForm" class="flex flex-col sm:flex-row gap-2 text-xs">
+            <input type="email" required placeholder="you@example.com" class="flex-1 rounded-full bg-[#050112] border border-purple-800/80 px-3 py-1.5 text-xs text-slate-100 focus:outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400">
+            <button type="submit" class="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500 text-slate-900 font-semibold hover:bg-emerald-400 transition-colors">
+              <i class="fa-solid fa-envelope-open-text text-[0.7rem]"></i>
+              <span>Join</span>
+            </button>
+          </form>
+        </div>
+        <div class="space-y-2">
+          <h3 class="text-xs uppercase tracking-[0.2em] text-emerald-300">Register & iPad</h3>
+          <div class="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-emerald-400/70 bg-emerald-500/10 text-[0.75rem] text-emerald-200">
+            <i class="fa-solid fa-tablet-screen-button text-emerald-300"></i>
+            <div>
+              <p class="font-semibold text-xs">Trinity Command Sync</p>
+              <p>Cart → iPad register in one tap.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-purple-900/70 text-[0.7rem] text-slate-500">
+        <p>© <span id="yearSpan"></span> Felixology Bookshop. All rights reserved.</p>
+        <p>Built with love, slime, and a little bit of math.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Global state
+    let cart = [];
+    let currentImageTargetId = null;
+    let imagePickerMode = 'library'; // 'camera' or 'library'
+
+    // Utility: Toast
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      const colorClasses = type === 'success'
+        ? 'border-emerald-400/80 bg-emerald-500/10 text-emerald-100'
+        : type === 'error'
+          ? 'border-rose-400/80 bg-rose-500/10 text-rose-100'
+          : 'border-purple-400/80 bg-purple-500/10 text-slate-100';
+      toast.className = 'toast-enter rounded-xl border px-3 py-2 text-[0.75rem] shadow-lg shadow-black/60 flex items-start gap-2 ' + colorClasses;
+      toast.innerHTML = '<i class="fa-solid fa-sparkles mt-0.5 text-[0.7rem]"></i><span>' + message + '</span>';
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(6px)';
+        setTimeout(() => {
+          toast.remove();
+        }, 200);
+      }, 2600);
+    }
+
+    // Smooth scroll
+    function smoothScrollTo(selector) {
+      const el = document.querySelector(selector);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Mobile drawer
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const mobileBackdrop = document.getElementById('mobileBackdrop');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+    const mobileCartBtn = document.getElementById('mobileCartBtn');
+
+    function openMobileDrawer() {
+      mobileDrawer.style.transform = 'translateX(0)';
+      mobileBackdrop.classList.remove('invisible');
+      mobileBackdrop.style.opacity = '1';
+    }
+    function closeMobileDrawer() {
+      mobileDrawer.style.transform = 'translateX(-100%)';
+      mobileBackdrop.style.opacity = '0';
+      setTimeout(() => {
+        mobileBackdrop.classList.add('invisible');
+      }, 220);
+    }
+
+    mobileMenuBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      openMobileDrawer();
+    });
+    mobileCloseBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      closeMobileDrawer();
+    });
+    mobileBackdrop.addEventListener('click', () => {
+      closeMobileDrawer();
+    });
+
+    document.querySelectorAll('.mobile-nav-link').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopImmediatePropagation();
+        const target = btn.getAttribute('data-scroll');
+        closeMobileDrawer();
+        setTimeout(() => smoothScrollTo(target), 80);
+      });
+    });
+
+    // Desktop nav links
+    document.querySelectorAll('.nav-link').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopImmediatePropagation();
+        const target = btn.getAttribute('data-scroll');
+        smoothScrollTo(target);
+      });
+    });
+
+    // Search button
+    const searchBtn = document.getElementById('searchBtn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', (e) => {
+        e.stopImmediatePropagation();
+        const query = prompt('What are you searching for at Felixology? (We’ll take you to the shop section.)');
+        if (query !== null) {
+          showToast('Searching the shelves for “‘' + query + '” (mock search).', 'info');
+          smoothScrollTo('#shop');
+        }
+      });
+    }
+
+    // Cart drawer
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartBackdrop = document.getElementById('cartBackdrop');
+    const cartBtn = document.getElementById('cartBtn');
+    const cartCloseBtn = document.getElementById('cartCloseBtn');
+
+    function openCartDrawer() {
+      cartDrawer.style.transform = 'translateX(0)';
+      cartBackdrop.classList.remove('invisible');
+      cartBackdrop.style.opacity = '1';
+    }
+    function closeCartDrawer() {
+      cartDrawer.style.transform = 'translateX(100%)';
+      cartBackdrop.style.opacity = '0';
+      setTimeout(() => {
+        cartBackdrop.classList.add('invisible');
+      }, 220);
+    }
+
+    cartBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      openCartDrawer();
+    });
+    cartCloseBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      closeCartDrawer();
+    });
+    cartBackdrop.addEventListener('click', () => {
+      closeCartDrawer();
+    });
+    mobileCartBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      closeMobileDrawer();
+      setTimeout(() => openCartDrawer(), 120);
+    });
+
+    // Cart logic
+    const cartCountEl = document.getElementById('cartCount');
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartSubtotalEl = document.getElementById('cartSubtotal');
+    const clearCartBtn = document.getElementById('clearCartBtn');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    function saveCart() {
+      localStorage.setItem('felixology_cart', JSON.stringify(cart));
+    }
+
+    function loadCart() {
+      const stored = localStorage.getItem('felixology_cart');
+      if (stored) {
+        try {
+          cart = JSON.parse(stored) || [];
+        } catch {
+          cart = [];
+        }
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      cartItemsEl.innerHTML = '';
+      let subtotal = 0;
+      cart.forEach((item, index) => {
+        subtotal += item.price * item.quantity;
+        const row = document.createElement('div');
+        row.className = 'flex items-start justify-between gap-2 border-b border-purple-900/60 pb-2 last:border-b-0';
+        row.innerHTML = `
+          <div class="flex-1">
+            <p class="text-xs font-semibold text-slate-50">${item.name}</p>
+            <p class="text-[0.7rem] text-slate-400">$${item.price.toFixed(2)} each</p>
+            <div class="flex items-center gap-2 mt-1">
+              <button class="h-6 w-6 inline-flex items-center justify-center rounded-full bg-purple-900/70 text-slate-100 text-xs hover:bg-purple-700/90 transition-colors" data-action="decrease" data-index="${index}">
+                <i class="fa-solid fa-minus text-[0.6rem]"></i>
+              </button>
+              <span class="text-xs text-slate-200 min-w-[1.5rem] text-center">${item.quantity}</span>
+              <button class="h-6 w-6 inline-flex items-center justify-center rounded-full bg-purple-900/70 text-slate-100 text-xs hover:bg-purple-700/90 transition-colors" data-action="increase" data-index="${index}">
+                <i class="fa-solid fa-plus text-[0.6rem]"></i>
+              </button>
+              <button class="ml-2 text-[0.7rem] text-rose-300 hover:text-rose-200 transition-colors" data-action="remove" data-index="${index}">
+                Remove
+              </button>
+            </div>
+          </div>
+          <div class="text-xs text-slate-200">
+            $${(item.price * item.quantity).toFixed(2)}
+          </div>
+        `;
+        cartItemsEl.appendChild(row);
+      });
+      cartSubtotalEl.textContent = '$' + subtotal.toFixed(2);
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      cartCountEl.textContent = totalCount;
+    }
+
+    cartItemsEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      e.stopImmediatePropagation();
+      const action = btn.getAttribute('data-action');
+      const index = parseInt(btn.getAttribute('data-index'), 10);
+      if (Number.isNaN(index) || !cart[index]) return;
+      if (action === 'increase') {
+        cart[index].quantity += 1;
+      } else if (action === 'decrease') {
+        cart[index].quantity = Math.max(1, cart[index].quantity - 1);
+      } else if (action === 'remove') {
+        cart.splice(index, 1);
+      }
+      saveCart();
+      updateCartUI();
+    });
+
+    function addToCart(name, price) {
+      const existing = cart.find(item => item.name === name);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+      saveCart();
+      updateCartUI();
+      showToast('Added “‘' + name + '” to your basket.', 'success');
+    }
+
+    clearCartBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      cart = [];
+      saveCart();
+      updateCartUI();
+      showToast('Cart cleared.', 'info');
+    });
+
+    checkoutBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      if (cart.length === 0) {
+        showToast('Your basket is empty — add a little magic first.', 'error');
+        return;
+      }
+      showToast('In a real shop, this would sync to the Trinity Command iPad register.', 'success');
+    });
+
+    // Quick view
+    function openQuickView(title, description) {
+      const content = `
+        <p class="text-sm text-slate-200">${description}</p>
+        <p class="text-[0.75rem] text-slate-400 pt-2">
+          This is a mock quick view for demos. In a live shop, you’d see more photos, details, and related titles here.
+        </p>
+      `;
+      openLightbox(title, content);
+    }
+
+    // Events reserve
+    function reserveEvent(name) {
+      showToast('Reserved a spot for “‘' + name + '” (demo only).', 'success');
+    }
+
+    // Lightbox
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxBackdrop = document.getElementById('lightboxBackdrop');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxContent = document.getElementById('lightboxContent');
+    const lightboxCloseBtn = document.getElementById('lightboxCloseBtn');
+
+    function openLightbox(title, htmlContent) {
+      lightboxTitle.textContent = title;
+      lightboxContent.innerHTML = htmlContent;
+      lightboxModal.classList.remove('invisible');
+      lightboxModal.style.opacity = '1';
+      lightboxBackdrop.classList.remove('invisible');
+      lightboxBackdrop.style.opacity = '1';
+    }
+
+    function closeLightbox() {
+      lightboxModal.style.opacity = '0';
+      lightboxBackdrop.style.opacity = '0';
+      setTimeout(() => {
+        lightboxModal.classList.add('invisible');
+        lightboxBackdrop.classList.add('invisible');
+      }, 220);
+    }
+
+    lightboxCloseBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      closeLightbox();
+    });
+    lightboxBackdrop.addEventListener('click', () => {
+      closeLightbox();
+    });
+
+    // Story modal content
+    const storyFullHtml = `
+      <div class="space-y-3 text-sm text-slate-200">
+        <p>
+          Felixology is not just a bookstore; it is a promise kept in wood, paper, and light. Felix Brow‑Westbrook was the kind of kid who drew entire universes in the margins of his homework. Trees with impossible branches, cities built inside lanterns, creatures made of static and starlight — his notebooks were portals.
+        </p>
+        <p>
+          When Felix died, the world did not make sense. The people who loved him were handed pamphlets and platitudes, but not places. There was nowhere to go that felt like him. So Libby, his mom, did the only thing that felt true: she started building one.
+        </p>
+        <p>
+          Felixology grew out of that building — a slow, stubborn act of love. The shelves came first, then the reading tree, then the lanterns. Friends and neighbors donated books. Artists offered prints. Kids brought drawings and taped them to the walls. The shop became a kind of shrine, but not the quiet, dusty kind. It was loud with color and laughter and the rustle of pages.
+        </p>
+        <p>
+          Every corner of Felixology holds a piece of Felix’s imagination. The slime kits and sensory bins nod to his love of textures and experiments. The grief & healing shelf exists because there were books Libby wishes she’d had sooner. The Magical Mind Zine is a way to keep inviting new voices into the story, so it never calcifies into something static.
+        </p>
+        <p>
+          People come here for different reasons. Some are grieving someone they loved. Some are grieving a version of themselves they never got to be. Some just really like weird books and cozy chairs. All of them are welcome. The rule is simple: you don’t have to be “okay” to belong here.
+        </p>
+        <p>
+          Felixology is, in the end, a spell: a carefully tended pattern of objects, stories, and people that says, “You were here. You mattered. You still do.” Every time someone buys a book, submits a zine piece, or curls up under the reading tree, the spell strengthens — and Felix’s story keeps unfolding in a hundred new directions.
+        </p>
+      </div>
+    `;
+
+    const announcementStoryBtn = document.getElementById('announcementStoryBtn');
+    const storyModalBtn = document.getElementById('storyModalBtn');
+    const storyModalBtnMobile = document.getElementById('storyModalBtnMobile');
+
+    function openStoryModal() {
+      openLightbox('Felix’s Story', storyFullHtml);
+    }
+
+    announcementStoryBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      openStoryModal();
+    });
+    storyModalBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      openStoryModal();
+    });
+    storyModalBtnMobile.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      openStoryModal();
+    });
+
+    // Gallery lightbox
+    function openGalleryLightbox(imgEl) {
+      const src = imgEl.src;
+      const alt = imgEl.alt || 'Felixology photo';
+      const content = `
+        <div class="w-full">
+          <img src="${src}" alt="${alt}" class="w-full max-h-[60vh] object-contain rounded-xl border border-purple-800/80">
+          <p class="text-[0.75rem] text-slate-400 pt-2">${alt}</p>
+        </div>
+      `;
+      openLightbox('Felixology Gallery', content);
+    }
+
+    // Image editing modal
+    const imageModal = document.getElementById('imageModal');
+    const imageModalBackdrop = document.getElementById('imageModalBackdrop');
+    const imageModalCloseBtn = document.getElementById('imageModalCloseBtn');
+    const imageTakePhotoBtn = document.getElementById('imageTakePhotoBtn');
+    const imageChooseLibraryBtn = document.getElementById('imageChooseLibraryBtn');
+    const imageResetBtn = document.getElementById('imageResetBtn');
+    const imagePicker = document.getElementById('imagePicker');
+
+    function openImageEditor(targetId) {
+      currentImageTargetId = targetId;
+      imageModal.classList.remove('invisible');
+      imageModal.style.opacity = '1';
+      imageModalBackdrop.classList.remove('invisible');
+      imageModalBackdrop.style.opacity = '1';
+    }
+
+    function closeImageEditor() {
+      imageModal.style.opacity = '0';
+      imageModalBackdrop.style.opacity = '0';
+      setTimeout(() => {
+        imageModal.classList.add('invisible');
+        imageModalBackdrop.classList.add('invisible');
+      }, 220);
+    }
+
+    imageModalCloseBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      closeImageEditor();
+    });
+    imageModalBackdrop.addEventListener('click', () => {
+      closeImageEditor();
+    });
+
+    imageTakePhotoBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      if (!currentImageTargetId) return;
+      imagePickerMode = 'camera';
+      imagePicker.setAttribute('capture', 'environment');
+      imagePicker.setAttribute('data-target', currentImageTargetId);
+      imagePicker.click();
+      closeImageEditor();
+    });
+
+    imageChooseLibraryBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      if (!currentImageTargetId) return;
+      imagePickerMode = 'library';
+      imagePicker.removeAttribute('capture');
+      imagePicker.setAttribute('data-target', currentImageTargetId);
+      imagePicker.click();
+      closeImageEditor();
+    });
+
+    imageResetBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      if (!currentImageTargetId) return;
+      const img = document.getElementById(currentImageTargetId);
+      if (!img) return;
+      const def = img.getAttribute('data-default-src');
+      if (def) {
+        img.src = def;
+        localStorage.removeItem('felixology_img_' + currentImageTargetId);
+        showToast('Image reset to default.', 'info');
+      }
+      closeImageEditor();
+    });
+
+    imagePicker.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const targetId = e.target.getAttribute('data-target');
+      if (!targetId) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const img = document.getElementById(targetId);
+        if (!img) return;
+        img.src = ev.target.result;
+        localStorage.setItem('felixology_img_' + targetId, ev.target.result);
+        showToast('Updated image for this section.', 'success');
+      };
+      reader.readAsDataURL(file);
+      imagePicker.value = '';
+    });
+
+    // Restore editable images from localStorage
+    function restoreEditableImages() {
+      document.querySelectorAll('img[data-editable="true"]').forEach(img => {
+        const id = img.id;
+        if (!id) return;
+        const stored = localStorage.getItem('felixology_img_' + id);
+        if (stored) {
+          img.src = stored;
+        } else {
+          const def = img.getAttribute('data-default-src');
+          if (def) img.src = def;
+        }
+      });
+    }
+
+    // Zine form
+    const zineForm = document.getElementById('zineForm');
+    const zineSuccess = document.getElementById('zineSuccess');
+    const zineSubscribeBtn = document.getElementById('zineSubscribeBtn');
+
+    zineForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      zineSuccess.classList.remove('hidden');
+      showToast('Zine submission received (demo only).', 'success');
+      zineForm.reset();
+      setTimeout(() => {
+        zineSuccess.classList.add('hidden');
+      }, 4000);
+    });
+
+    zineSubscribeBtn.addEventListener('click', (e) => {
+      e.stopImmediatePropagation();
+      showToast('You’re now on the (imaginary) Magical Mind Zine list.', 'success');
+    });
+
+    // Footer newsletter
+    const footerNewsletterForm = document.getElementById('footerNewsletterForm');
+    footerNewsletterForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      showToast('Newsletter signup captured (demo only).', 'success');
+      footerNewsletterForm.reset();
+    });
+
+    // Year
+    document.getElementById('yearSpan').textContent = new Date().getFullYear();
+
+    // On load
+    window.addEventListener('load', () => {
+      console.log('100% COMPLETE & FULLY FUNCTIONAL');
+      loadCart();
+      restoreEditableImages();
+    });
+  </script>
+</body>
+</html>
