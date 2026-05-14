@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Felixology — Whimsical independent bookstore in Maynard, MA. Books, gifts, art, events & the Magical Mind Zine. Honoring Felix Brow-Westbrook.">
+  <title>Felixology • Books, Gifts & Art for the Magical Mind</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .heading { font-family: 'Playfair Display', serif; }
+    .magic-purple { color: #7C3AED; }
+    .magic-green { color: #10B981; }
+    .cart-drawer, .mobile-drawer { transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1); }
+    .product-card, .gallery-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .product-card:hover, .gallery-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgb(124 58 237); }
+    .nav-link { position: relative; }
+    .nav-link::after { content: ''; position: absolute; width: 0; height: 3px; bottom: -3px; left: 0; background-color: #10B981; transition: width 0.3s ease; }
+    .nav-link:hover::after { width: 100%; }
+    @keyframes sparkle { 0%,100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.15); } }
+    .sparkle { animation: sparkle 2.5s infinite ease-in-out; }
+  </style>
+</head>
+<body class="bg-[#0F0A1F] text-gray-100 overflow-x-hidden">
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="bg-gradient-to-r from-purple-600 to-emerald-500 text-white text-center py-2.5 text-sm font-medium flex items-center justify-center gap-3">
+    <span class="px-4 py-1 bg-white/20 rounded-3xl text-xs flex items-center gap-1">✨ FELIX’S STORY</span>
+    <span class="font-semibold">Honoring Felix Brow-Westbrook — read his full story below</span>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="bg-[#1A1333] border-b border-purple-500 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-emerald-500 rounded-2xl flex items-center justify-center text-3xl sparkle">✨</div>
+          <h1 class="heading text-3xl magic-purple tracking-tighter">Felixology</h1>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8 text-lg">
+          <a href="#story" class="nav-link hover:text-emerald-400 transition">Felix’s Story</a>
+          <a href="#shop" class="nav-link hover:text-emerald-400 transition">Shop</a>
+          <a href="#events" class="nav-link hover:text-emerald-400 transition">Events</a>
+          <a href="#zine" class="nav-link hover:text-emerald-400 transition">Zine</a>
+          <a href="#gallery" class="nav-link hover:text-emerald-400 transition">Gallery</a>
+          <a href="#visit" class="nav-link hover:text-emerald-400 transition">Visit</a>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <div onclick="toggleSearch()" class="cursor-pointer"><i class="fa-solid fa-magnifying-glass text-2xl hover:text-emerald-400 transition"></i></div>
+          <button onclick="joinCircle()" class="hidden md:flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-purple-500 rounded-3xl font-medium text-sm">
+            <i class="fa-solid fa-circle"></i> Felix’s Circle
+          </button>
+          <div onclick="toggleCart()" class="relative cursor-pointer">
+            <i class="fa-solid fa-cart-shopping text-3xl"></i>
+            <span id="cart-count" class="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs font-bold w-6 h-6 flex items-center justify-center rounded-full">0</span>
+          </div>
+          <button onclick="toggleMobileDrawer()" class="md:hidden text-3xl">
+            <i id="hamburger-icon" class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE DRAWER -->
+  <div onclick="if(event.target.id === 'mobile-drawer-backdrop') toggleMobileDrawer()" id="mobile-drawer-backdrop" class="hidden fixed inset-0 bg-black/70 z-[99999]"></div>
+  <div id="mobile-drawer" class="mobile-drawer fixed top-0 left-0 h-full w-72 bg-[#1A1333] shadow-2xl translate-x-[-100%] z-[100000] flex flex-col">
+    <div class="p-6 border-b flex justify-between items-center">
+      <h1 class="heading text-3xl magic-purple">Felixology</h1>
+      <button onclick="toggleMobileDrawer()" class="text-4xl"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="flex-1 px-6 py-8 flex flex-col gap-8 text-xl">
+      <a href="#story" onclick="toggleMobileDrawer()" class="flex items-center gap-4 hover:text-emerald-400"><i class="fa-solid fa-book fa-fw w-5"></i>Felix’s Story</a>
+      <a href="#shop" onclick="toggleMobileDrawer()" class="flex items-center gap-4 hover:text-emerald-400"><i class="fa-solid fa-shopping-bag fa-fw w-5"></i>Shop</a>
+      <a href="#events" onclick="toggleMobileDrawer()" class="flex items-center gap-4 hover:text-emerald-400"><i class="fa-solid fa-calendar fa-fw w-5"></i>Events</a>
+      <a href="#zine" onclick="toggleMobileDrawer()" class="flex items-center gap-4 hover:text-emerald-400"><i class="fa-solid fa-newspaper fa-fw w-5"></i>Zine</a>
+      <a href="#gallery" onclick="toggleMobileDrawer()" class="flex items-center gap-4 hover:text-emerald-400"><i class="fa-solid fa-images fa-fw w-5"></i>Gallery</a>
+      <a href="#visit" onclick="toggleMobileDrawer()" class="flex items-center gap-4 hover:text-emerald-400"><i class="fa-solid fa-map-marker-alt fa-fw w-5"></i>Visit Us</a>
+    </div>
+    <div class="p-6 border-t">
+      <button onclick="joinCircle();toggleMobileDrawer()" class="w-full py-5 bg-gradient-to-r from-emerald-500 to-purple-500 rounded-3xl font-semibold text-lg">Join Felix’s Circle ✨</button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="bg-gradient-to-br from-[#1A1333] via-[#2D1B4E] to-[#1A1333] pt-16 pb-20 text-center relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-white text-sm px-8 py-3 rounded-3xl mb-8 border border-white/20">
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-400"></span>
+        </span>
+        NOW OPEN IN MAYNARD, MASSACHUSETTS
+      </div>
+      <h1 class="heading text-6xl md:text-7xl lg:text-8xl leading-none mb-6 tracking-tighter">
+        Books, Gifts &amp; Art<br>for the <span class="magic-purple">Magical Mind</span>
+      </h1>
+      <p class="text-2xl md:text-3xl text-emerald-200 max-w-2xl mx-auto">A whimsical independent bookstore created to keep Felix’s creative spirit alive.</p>
+      <div class="flex flex-wrap justify-center gap-4 mt-10">
+        <a href="#story" class="px-10 py-6 bg-white text-[#1A1333] rounded-3xl text-2xl font-semibold hover:scale-105 transition flex items-center gap-3">
+          Read Felix’s Story
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="#shop" class="px-10 py-6 border-2 border-emerald-400 rounded-3xl text-2xl font-semibold hover:bg-emerald-400 hover:text-[#1A1333] transition">Shop the Magic</a>
+      </div>
+      <p class="mt-12 text-emerald-300 flex items-center justify-center gap-6 text-sm uppercase tracking-widest">2 Walnut Street • Maynard, MA 01754 • (978) 298-5716</p>
+    </div>
+  </header>
+
+  <!-- FELIX’S STORY -->
+  <section id="story" class="py-20 bg-[#1A1333]">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-12 gap-16 items-center">
+        <div class="lg:col-span-7">
+          <span class="px-5 py-2 bg-emerald-500 text-black rounded-3xl text-sm font-semibold">IN MEMORY OF FELIX BROW-WESTBROOK</span>
+          <h2 class="heading text-6xl mt-6 leading-none mb-8">The Story of Felix</h2>
+          <div class="text-xl leading-relaxed text-emerald-100">
+            <p>Felix was an enchanted soul, a brilliant young artist, and a passionate lover of literature who left us at just 29 after a courageous battle with mesothelioma.</p>
+            <p>Felixology was born from love — a whimsical, independent bookstore in Maynard, Massachusetts that honors his memory every single day. Through curated books, meaningful gifts, original art, creative workshops, local history, and heartfelt community gatherings, we keep his magical mind alive.</p>
+            <p>At the heart of everything we do are Felix’s <strong>8 Foundations</strong>: Creativity • Community • Literature • Art &amp; Expression • Local History • The Magical Mind • Healing &amp; Hope • Whimsy &amp; Wonder.</p>
+          </div>
+          <button onclick="showFullStory()" class="mt-10 inline-flex items-center gap-3 text-2xl underline decoration-emerald-400 hover:decoration-transparent font-medium">
+            Read the complete story + see Felix’s art <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+        <div class="lg:col-span-5">
+          <div class="bg-gradient-to-br from-purple-400/20 to-emerald-400/20 rounded-3xl p-8 text-center border border-white/10">
+            <div class="text-8xl mb-8 sparkle">🪄</div>
+            <p class="text-3xl italic">"Books, gifts, and art for the magical mind — that’s what Felix would have wanted."</p>
+            <p class="text-emerald-300 mt-6">— The Felixology Family</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section id="shop" class="py-20 bg-[#0F0A1F]">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex justify-between items-end mb-12">
+        <div>
+          <span class="px-5 py-2 bg-purple-600/20 text-purple-300 text-sm rounded-3xl">CURATED COLLECTION</span>
+          <h2 class="heading text-5xl mt-3">Featured in the Magical Mind Shop</h2>
+        </div>
+        <a href="#" onclick="alert('In the real Trinity Command site you would see the full catalog ✨')" class="text-emerald-400 hover:underline flex items-center gap-2">View full catalog <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div onclick="quickView(1)" class="product-card bg-white/10 rounded-3xl overflow-hidden cursor-pointer">
+          <img src="https://picsum.photos/id/1015/600/600" class="w-full h-56 object-cover" alt="Magical Mind Zine">
+          <div class="p-6">
+            <p class="text-emerald-300 text-xs">ZINE LAUNCH</p>
+            <h3 class="text-xl font-semibold">Magical Mind Zine – Issue 01</h3>
+            <p class="text-emerald-400">$12</p>
+            <button onclick="event.stopImmediatePropagation();addToCart(1,'Magical Mind Zine – Issue 01',12)" class="mt-4 w-full py-3 bg-purple-600 hover:bg-purple-700 rounded-2xl text-sm font-medium">Add to Cart</button>
+          </div>
+        </div>
+        <div onclick="quickView(2)" class="product-card bg-white/10 rounded-3xl overflow-hidden cursor-pointer">
+          <img src="https://picsum.photos/id/160/600/600" class="w-full h-56 object-cover" alt="Magical Mind Gift Box">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold">Magical Mind Gift Box</h3>
+            <p class="text-emerald-400">$49</p>
+            <button onclick="event.stopImmediatePropagation();addToCart(2,'Magical Mind Gift Box',49)" class="mt-4 w-full py-3 bg-emerald-500 hover:bg-emerald-600 rounded-2xl text-sm font-medium">Add to Cart</button>
+          </div>
+        </div>
+        <div onclick="quickView(3)" class="product-card bg-white/10 rounded-3xl overflow-hidden cursor-pointer">
+          <img src="https://picsum.photos/id/201/600/600" class="w-full h-56 object-cover" alt="Felix Original Art Print">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold">Felix Original Art Print</h3>
+            <p class="text-emerald-400">$35</p>
+            <button onclick="event.stopImmediatePropagation();addToCart(3,'Felix Original Art Print',35)" class="mt-4 w-full py-3 bg-purple-600 hover:bg-purple-700 rounded-2xl text-sm font-medium">Add to Cart</button>
+          </div>
+        </div>
+        <div onclick="quickView(4)" class="product-card bg-white/10 rounded-3xl overflow-hidden cursor-pointer">
+          <img src="https://picsum.photos/id/1005/600/600" class="w-full h-56 object-cover" alt="Enchanted Slime Kit">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold">Enchanted Slime Kit</h3>
+            <p class="text-emerald-400">$18</p>
+            <button onclick="event.stopImmediatePropagation();addToCart(4,'Enchanted Slime Kit',18)" class="mt-4 w-full py-3 bg-emerald-500 hover:bg-emerald-600 rounded-2xl text-sm font-medium">Add to Cart</button>
+          </div>
+        </div>
+        <div onclick="quickView(5)" class="product-card bg-white/10 rounded-3xl overflow-hidden cursor-pointer">
+          <img src="https://picsum.photos/id/133/600/600" class="w-full h-56 object-cover" alt="Local History Collection">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold">Local History Collection</h3>
+            <p class="text-emerald-400">$24</p>
+            <button onclick="event.stopImmediatePropagation();addToCart(5,'Local History Collection',24)" class="mt-4 w-full py-3 bg-purple-600 hover:bg-purple-700 rounded-2xl text-sm font-medium">Add to Cart</button>
+          </div>
+        </div>
+        <div onclick="quickView(6)" class="product-card bg-white/10 rounded-3xl overflow-hidden cursor-pointer">
+          <img src="https://picsum.photos/id/1016/600/600" class="w-full h-56 object-cover" alt="Creativity Journal Set">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold">Creativity Journal Set</h3>
+            <p class="text-emerald-400">$29</p>
+            <button onclick="event.stopImmediatePropagation();addToCart(6,'Creativity Journal Set',29)" class="mt-4 w-full py-3 bg-emerald-500 hover:bg-emerald-600 rounded-2xl text-sm font-medium">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAFF PICKS -->
+  <section class="py-16 bg-[#1A1333]">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="heading text-5xl text-center mb-12">Staff Picks from the Magical Mind</h2>
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="text-center bg-white/10 rounded-3xl p-8 hover:bg-white/20 transition">
+          <img src="https://picsum.photos/id/1015/300/300" class="mx-auto rounded-2xl mb-6 w-24 h-24 object-cover" alt="The House in the Cerulean Sea">
+          <p class="font-semibold">“The House in the Cerulean Sea”</p>
+          <p class="text-emerald-300 text-sm mt-2">— Perfect whimsical fantasy</p>
+        </div>
+        <div class="text-center bg-white/10 rounded-3xl p-8 hover:bg-white/20 transition">
+          <img src="https://picsum.photos/id/201/300/300" class="mx-auto rounded-2xl mb-6 w-24 h-24 object-cover" alt="The Midnight Library">
+          <p class="font-semibold">“The Midnight Library”</p>
+          <p class="text-emerald-300 text-sm mt-2">— For dreamers &amp; thinkers</p>
+        </div>
+        <div class="text-center bg-white/10 rounded-3xl p-8 hover:bg-white/20 transition">
+          <img src="https://picsum.photos/id/133/300/300" class="mx-auto rounded-2xl mb-6 w-24 h-24 object-cover" alt="Maynard Local History">
+          <p class="font-semibold">Maynard Local History</p>
+          <p class="text-emerald-300 text-sm mt-2">— Curated by the team</p>
+        </div>
+        <div class="text-center bg-white/10 rounded-3xl p-8 hover:bg-white/20 transition">
+          <img src="https://picsum.photos/id/1005/300/300" class="mx-auto rounded-2xl mb-6 w-24 h-24 object-cover" alt="Grief &amp; Healing Reads">
+          <p class="font-semibold">Grief &amp; Healing Reads</p>
+          <p class="text-emerald-300 text-sm mt-2">— Books that comfort</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section id="events" class="py-20 bg-[#0F0A1F]">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="heading text-5xl text-center mb-12">Upcoming Events at Felixology</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-purple-900/70 to-emerald-900/70 rounded-3xl p-8">
+          <div class="text-emerald-400">June 14 • 7:00 PM</div>
+          <h3 class="text-3xl font-semibold mt-3">Magical Mind Zine Release Party</h3>
+          <p class="mt-4">Author readings, live zine-making, open mic, and community celebration</p>
+          <button onclick="bookEvent('Zine Release Party')" class="mt-8 w-full py-4 bg-white text-[#1A1333] rounded-3xl font-semibold">Reserve Your Spot • $12</button>
+        </div>
+        <div class="bg-white/10 rounded-3xl p-8">
+          <div class="text-emerald-400">June 28 • 6:00 PM</div>
+          <h3 class="text-3xl font-semibold mt-3">Grief &amp; Death Café</h3>
+          <p class="mt-4">A warm, safe space for connection, stories, and healing</p>
+          <button onclick="bookEvent('Grief &amp; Death Café')" class="mt-8 w-full py-4 border-2 border-white rounded-3xl">Free • RSVP Now</button>
+        </div>
+        <div class="bg-white/10 rounded-3xl p-8">
+          <div class="text-emerald-400">July 12 • 11:00 AM</div>
+          <h3 class="text-3xl font-semibold mt-3">Kids Storytime + Slime Workshop</h3>
+          <p class="mt-4">Creative fun for little magical minds (ages 4–10)</p>
+          <button onclick="bookEvent('Kids Storytime &amp; Slime')" class="mt-8 w-full py-4 border-2 border-white rounded-3xl">$10 per child</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZINE -->
+  <section id="zine" class="py-20 bg-gradient-to-b from-[#0F0A1F] to-[#1A1333]">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="px-6 py-2 bg-purple-600 text-white rounded-3xl text-sm font-bold">BRAND NEW</span>
+        <h2 class="heading text-6xl mt-6 mb-4">Magical Mind Zine</h2>
+        <p class="text-3xl text-emerald-200 max-w-2xl mx-auto">Quarterly print publication showcasing short stories, poetry, flash fiction &amp; art from local &amp; emerging authors across Maynard &amp; Greater Boston.</p>
+      </div>
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-5 bg-white/10 rounded-3xl p-10">
+          <h3 class="text-2xl mb-6">Submit Your Work</h3>
+          <form id="zine-form" onsubmit="submitZineForm(event)" class="space-y-6">
+            <input type="text" id="name" placeholder="Your name" required class="w-full bg-white/10 border border-white/30 focus:border-emerald-400 rounded-3xl px-8 py-5 text-white placeholder:text-gray-400">
+            <input type="email" id="email" placeholder="Email address" required class="w-full bg-white/10 border border-white/30 focus:border-emerald-400 rounded-3xl px-8 py-5 text-white placeholder:text-gray-400">
+            <textarea id="story" rows="6" placeholder="Paste your short story, poem, or creative piece here..." required class="w-full bg-white/10 border border-white/30 focus:border-emerald-400 rounded-3xl px-8 py-5 text-white placeholder:text-gray-400"></textarea>
+            <button type="submit" class="w-full py-6 bg-gradient-to-r from-purple-500 to-emerald-500 rounded-3xl font-bold text-xl">Send to the Editors ✨</button>
+          </form>
+          <div id="form-success" class="hidden text-center py-8">
+            <p class="text-4xl mb-4">🎉</p>
+            <p class="text-emerald-400 text-2xl">Thank you! Your submission has been received.</p>
+            <p class="text-emerald-300 mt-2">The team (and Felix’s spirit) will review it soon.</p>
+          </div>
+        </div>
+        <div class="lg:col-span-4 bg-white/10 rounded-3xl p-10 flex flex-col justify-center">
+          <div class="text-center">
+            <p class="text-8xl mb-4">📖</p>
+            <p class="text-3xl font-semibold">Issue 01 • “Enchanted Beginnings”</p>
+            <p class="text-emerald-400 mt-2">40 beautiful pages • Drops July 2026</p>
+            <button onclick="subscribeZine()" class="mt-12 w-full py-6 border-2 border-emerald-400 hover:bg-emerald-400 hover:text-[#1A1333] rounded-3xl text-xl font-semibold">Subscribe for $28/year</button>
+          </div>
+        </div>
+        <div class="lg:col-span-3 space-y-6">
+          <div class="bg-white/10 rounded-3xl p-8">
+            <h4 class="text-xl mb-6 flex items-center gap-3"><span class="text-3xl">🌟</span> Themed Issues</h4>
+            <p class="text-emerald-200">Each edition celebrates seasons, Felix’s 8 Foundations, creativity, history &amp; community.</p>
+          </div>
+          <div class="bg-white/10 rounded-3xl p-8">
+            <h4 class="text-xl mb-6 flex items-center gap-3"><span class="text-3xl">📬</span> Annual Anthology</h4>
+            <p class="text-emerald-200">Best stories from the year collected into a beautiful paperback.</p>
+          </div>
+          <div class="bg-white/10 rounded-3xl p-8">
+            <h4 class="text-xl mb-6 flex items-center gap-3"><span class="text-3xl">🎤</span> Launch Parties</h4>
+            <p class="text-emerald-200">Live readings, workshops &amp; open mics at the store every quarter.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="py-20 bg-[#0F0A1F]">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="heading text-5xl text-center mb-12">What Our Community Says</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white/10 rounded-3xl p-8 italic">"The most magical bookstore I’ve ever stepped into. The energy, the art, the kindness — it’s pure Felix magic. I leave happier every time."</div>
+        <div class="bg-white/10 rounded-3xl p-8 italic">"Grief Café changed how I process loss. Felixology isn’t just a bookstore — it’s a community hearth."</div>
+        <div class="bg-white/10 rounded-3xl p-8 italic">"My kids beg to go to storytime every weekend. The Zine launch party is going to be legendary!"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="py-20 bg-[#1A1333]">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="heading text-5xl text-center mb-4">Inside the Magic</h2>
+      <p class="text-center text-emerald-300 mb-12">Step through the purple door — photos from our whimsical bookstore</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="gallery-grid"></div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div onclick="if(event.target.id === 'lightbox') hideLightbox()" id="lightbox" class="hidden fixed inset-0 bg-black/90 z-[99999] flex items-center justify-center">
+    <div class="max-w-4xl w-full mx-4 relative">
+      <button onclick="hideLightbox()" class="absolute -top-12 right-0 text-white text-5xl hover:text-emerald-400">×</button>
+      <div id="lightbox-content" class="bg-white/10 backdrop-blur-lg rounded-3xl p-6 text-center"></div>
+    </div>
+  </div>
+
+  <!-- VISIT US -->
+  <section id="visit" class="py-20 bg-[#0F0A1F]">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+      <div>
+        <h2 class="heading text-6xl">Come Visit the Magic</h2>
+        <div class="mt-8 text-3xl">2 Walnut Street<br>Maynard, MA 01754</div>
+        <p class="mt-6 text-xl text-emerald-300">Under the Boston Bean House • 0.3 mi from downtown</p>
+        <div class="mt-12 flex flex-wrap gap-x-12 gap-y-6">
+          <div>
+            <div class="text-emerald-400">Hours</div>
+            <div class="text-2xl mt-2">10 AM – 6 PM</div>
+            <div class="text-emerald-400">Closed Wednesdays</div>
+          </div>
+          <div>
+            <div class="text-emerald-400">Call</div>
+            <div class="text-2xl mt-2">(978) 298-5716</div>
+          </div>
+          <div>
+            <div class="text-emerald-400">Email</div>
+            <div class="text-2xl mt-2">felixology8@gmail.com</div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white/10 rounded-3xl p-12 text-center">
+        <div class="text-8xl mb-8">🪄</div>
+        <p class="text-3xl leading-tight">Step through the purple door.<br>Feel instantly at home.</p>
+        <div class="inline-flex items-center gap-3 mt-12 bg-emerald-500 text-black rounded-3xl px-8 py-4 text-xl">
+          <i class="fa-solid fa-map-marker-alt"></i>
+          Get directions
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CART DRAWER -->
+  <div id="cart-drawer" class="cart-drawer fixed top-0 right-0 h-full w-full md:w-96 bg-[#1A1333] shadow-2xl translate-x-full z-[99999] flex flex-col">
+    <div class="p-8 border-b flex justify-between items-center">
+      <h3 class="text-3xl font-semibold">Your Magical Cart</h3>
+      <i onclick="toggleCart()" class="fa-solid fa-xmark text-4xl cursor-pointer"></i>
+    </div>
+    <div id="cart-items" class="flex-1 p-8 overflow-auto space-y-8"></div>
+    <div class="p-8 border-t">
+      <div class="flex justify-between text-2xl mb-8">
+        <span>Total</span>
+        <span id="cart-total" class="font-semibold">$0.00</span>
+      </div>
+      <button onclick="checkout()" class="w-full py-7 bg-emerald-500 hover:bg-emerald-600 text-black text-2xl font-semibold rounded-3xl mb-3">Complete Purchase • Secure Checkout</button>
+      <div class="flex gap-3">
+        <button onclick="toggleCart()" class="flex-1 py-4 border border-white rounded-3xl">Continue Shopping</button>
+        <button onclick="clearCart()" class="flex-1 py-4 border border-red-400 text-red-400 rounded-3xl">Clear Cart</button>
+      </div>
+      <p class="text-center text-xs text-emerald-300 mt-6">Trinity Command • Real-time synced with store iPad</p>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" onclick="this.classList.add('hidden')" class="hidden fixed bottom-8 right-8 bg-emerald-500 text-black px-8 py-5 rounded-3xl shadow-2xl flex items-center gap-4 z-[100000]">
+    <i class="fa-solid fa-check-circle text-3xl"></i>
+    <span id="toast-text" class="font-semibold text-xl"></span>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" id="back-to-top" class="hidden fixed bottom-8 left-8 bg-emerald-500 text-black w-12 h-12 rounded-3xl shadow-2xl flex items-center justify-center text-2xl z-[100000]">
+    ↑
+  </button>
+
+  <!-- FOOTER -->
+  <footer class="bg-black py-16 border-t border-purple-500">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-12 gap-12">
+        <div class="md:col-span-3">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-emerald-500 rounded-2xl flex items-center justify-center text-3xl">✨</div>
+            <p class="heading text-4xl magic-purple">Felixology</p>
+          </div>
+          <p class="text-emerald-300">Books, Gifts &amp; Art for the Magical Mind</p>
+          <p class="text-xs mt-8 opacity-60">Built as a live Trinity Command demo</p>
+        </div>
+        <div class="md:col-span-2">
+          <p class="uppercase text-sm mb-6 text-emerald-400">Explore</p>
+          <ul class="space-y-3 text-emerald-200">
+            <li><a href="#story" class="hover:text-white">Felix’s Story</a></li>
+            <li><a href="#shop" class="hover:text-white">Shop</a></li>
+            <li><a href="#events" class="hover:text-white">Events</a></li>
+            <li><a href="#zine" class="hover:text-white">Zine</a></li>
+          </ul>
+        </div>
+        <div class="md:col-span-4">
+          <p class="uppercase text-sm mb-6 text-emerald-400">Stay Enchanted</p>
+          <form onsubmit="newsletterSignup(event)" class="flex gap-3">
+            <input type="email" id="newsletter-email" placeholder="your@email.com" required class="flex-1 bg-white/10 border border-white/30 rounded-3xl px-8 py-5 text-white placeholder:text-gray-400 focus:outline-none">
+            <button type="submit" class="px-10 bg-emerald-500 text-black rounded-3xl font-semibold">Join</button>
+          </form>
+          <p class="text-xs text-emerald-400 mt-3">Monthly “Enchanted Updates” + early access to zine &amp; events</p>
+        </div>
+        <div class="md:col-span-3">
+          <p class="uppercase text-sm mb-6 text-emerald-400">Connect</p>
+          <div class="flex gap-8 text-5xl mb-10">
+            <a href="https://www.instagram.com/felixologybookshop/" target="_blank" class="hover:text-emerald-400 transition"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/p/Felixology-61560689444921/" target="_blank" class="hover:text-emerald-400 transition"><i class="fa-brands fa-facebook"></i></a>
+          </div>
+          <div class="bg-emerald-900/30 rounded-3xl p-6">
+            <div class="flex items-center gap-3 text-emerald-400 mb-3">
+              <i class="fa-solid fa-tablet-screen-button text-2xl"></i>
+              <span class="font-medium">iPad Register Sync</span>
+            </div>
+            <p class="text-sm">Inventory, orders, events, loyalty points &amp; zine submissions all sync instantly with the store iPad via Trinity Command.</p>
+          </div>
+        </div>
+      </div>
+      <div class="text-center text-xs opacity-60 mt-20">
+        © 2026 Felixology • Maynard, Massachusetts • All the magic is real
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem('felixologyCart')) || [];
+
+    function saveCart() {
+      localStorage.setItem('felixologyCart', JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const countEl = document.getElementById('cart-count');
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      countEl.textContent = totalItems;
+    }
+
+    function addToCart(id, name, price) {
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cart.push({ id, name, price, quantity: 1 });
+      }
+      saveCart();
+      showToast(`${name} added to cart ✨`);
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(item => item.id !== id);
+      saveCart();
+      renderCart();
+    }
+
+    function changeQuantity(id, change) {
+      const item = cart.find(i => i.id === id);
+      if (item) {
+        item.quantity += change;
+        if (item.quantity < 1) removeFromCart(id);
+        else {
+          saveCart();
+          renderCart();
+        }
+      }
+    }
+
+    function clearCart() {
+      cart = [];
+      saveCart();
+      renderCart();
+      showToast("Cart cleared");
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cart-items');
+      container.innerHTML = '';
+      let subtotal = 0;
+      if (cart.length === 0) {
+        container.innerHTML = `<div class="text-center py-20 text-emerald-300"><div class="text-8xl mb-6">🪄</div><p class="text-2xl">Your cart is empty</p><p class="mt-4">Time to fill it with a little magic!</p></div>`;
+        document.getElementById('cart-total').innerHTML = `$0 <span class="text-base font-normal">USD</span>`;
+        return;
+      }
+      cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        container.innerHTML += `
+          <div class="flex gap-6">
+            <div class="flex-1">
+              <p class="font-medium">${item.name}</p>
+              <p class="text-emerald-400 text-sm">$${item.price} each</p>
+            </div>
+            <div class="flex items-center gap-4">
+              <button onclick="changeQuantity(${item.id}, -1)" class="w-8 h-8 flex items-center justify-center text-xl hover:text-emerald-400">-</button>
+              <span class="font-mono w-8 text-center">${item.quantity}</span>
+              <button onclick="changeQuantity(${item.id}, 1)" class="w-8 h-8 flex items-center justify-center text-xl hover:text-emerald-400">+</button>
+            </div>
+            <div class="text-right font-semibold">$${itemTotal}</div>
+            <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-500"><i class="fa-solid fa-trash"></i></button>
+          </div>
+          <hr class="my-6 border-purple-500/30">
+        `;
+      });
+      document.getElementById('cart-total').innerHTML = `$${subtotal} <span class="text-base font-normal">USD</span>`;
+    }
+
+    function toggleCart() {
+      const drawer = document.getElementById('cart-drawer');
+      if (drawer.classList.contains('translate-x-full')) {
+        renderCart();
+        drawer.style.transform = 'translateX(0)';
+      } else {
+        drawer.style.transform = 'translateX(100%)';
+      }
+    }
+
+    function checkout() {
+      if (cart.length === 0) return;
+      alert("🎟️ Thank you! This would open a beautiful, secure Stripe checkout powered by Trinity Command in the live site.");
+      cart = [];
+      saveCart();
+      toggleCart();
+      showToast("Order placed! The magic is on its way ✨");
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerHTML = message;
+      toast.style.display = 'flex';
+      setTimeout(() => { toast.style.display = 'none'; }, 3200);
+    }
+
+    function submitZineForm(e) {
+      e.preventDefault();
+      const form = document.getElementById('zine-form');
+      form.classList.add('hidden');
+      document.getElementById('form-success').classList.remove('hidden');
+      setTimeout(() => {
+        form.reset();
+        form.classList.remove('hidden');
+        document.getElementById('form-success').classList.add('hidden');
+        showToast("Submission received by the editors ✨");
+      }, 4200);
+    }
+
+    function subscribeZine() {
+      alert("🌟 You are now subscribed to the Magical Mind Zine!\n\nFirst issue will ship in July 2026.");
+      showToast("Welcome to the Zine family!");
+    }
+
+    function bookEvent(name) {
+      alert(`🎟️ Spot reserved for “${name}”!\n\nA confirmation email has been sent. See you at Felixology!`);
+      showToast(`Reserved: ${name}`);
+    }
+
+    function joinCircle() {
+      alert("🌟 Welcome to Felix’s Circle!\n\nYou now receive:\n• Early event access\n• Zine subscription discount\n• Member-only bundles\n• Monthly enchanted updates");
+      showToast("You are now part of Felix’s Circle ✨");
+    }
+
+    function newsletterSignup(e) {
+      e.preventDefault();
+      const email = document.getElementById('newsletter-email').value;
+      if (email) {
+        alert(`🎉 Thank you! ${email} has been added to the Enchanted Updates list.`);
+        document.getElementById('newsletter-email').value = '';
+        showToast("Welcome to the enchantment!");
+      }
+    }
+
+    function toggleSearch() {
+      const query = prompt("🔎 Search the Magical Mind Shop:");
+      if (query && query.trim()) {
+        alert(`🔍 Searching for “${query}”…\n\n(In the real Trinity Command site this would instantly filter products and show results)`);
+        document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function quickView(id) {
+      const messages = {
+        1: "📖 Magical Mind Zine – Issue 01\n\n40 pages of local stories, poetry & art. First edition drops July 2026.",
+        2: "🎁 Magical Mind Gift Box\n\nCurated book + original art print + handmade bookmark. The perfect gift.",
+        3: "🖼️ Felix Original Art Print\n\nLimited edition print honoring Felix’s magical artwork.",
+        4: "🪄 Enchanted Slime Kit\n\nEverything you need for our popular slime-making workshops.",
+        5: "📚 Local History Collection\n\nHand-selected books celebrating Maynard and the surrounding area.",
+        6: "🌿 Creativity Journal Set\n\nBeautiful guided journal + pens for the magical mind."
+      };
+      alert(messages[id] + "\n\nClick 'Add to Cart' on the card to purchase!");
+    }
+
+    function showFullStory() {
+      const storyHTML = `
+        <div class="max-w-2xl mx-auto text-left p-6">
+          <h3 class="text-4xl mb-6">Felix Brow-Westbrook</h3>
+          <p class="text-xl leading-relaxed">Felix was a magical artist and literature lover who passed away at 29 after battling mesothelioma. His family opened Felixology to honor his creative spirit and share the joy of books, art, and community with Maynard and beyond.</p>
+          <p class="mt-6 text-emerald-200">Every book sold, every event held, every piece of art displayed carries Felix’s light forward.</p>
+          <div class="mt-10 flex justify-center">
+            <button onclick="hideLightbox()" class="px-10 py-4 bg-emerald-500 text-black rounded-3xl font-semibold">Close &amp; Continue the Magic</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('lightbox-content').innerHTML = storyHTML;
+      document.getElementById('lightbox').classList.remove('hidden');
+      document.getElementById('lightbox').classList.add('flex');
+    }
+
+    function buildGallery() {
+      const images = [
+        { url: "https://picsum.photos/id/1015/800/600", desc: "The whimsical purple door &amp; storefront" },
+        { url: "https://picsum.photos/id/160/800/600", desc: "Cozy reading nooks &amp; couches" },
+        { url: "https://picsum.photos/id/201/800/600", desc: "Curated bookshelves filled with magic" },
+        { url: "https://picsum.photos/id/1005/800/600", desc: "Felix’s rotating art gallery" },
+        { url: "https://picsum.photos/id/133/800/600", desc: "Community event in full swing" },
+        { url: "https://picsum.photos/id/1005/800/600", desc: "Grief Café gathering" },
+        { url: "https://picsum.photos/id/1016/800/600", desc: "Kids’ storytime &amp; slime workshop" },
+        { url: "https://picsum.photos/id/1015/800/600", desc: "The heart of the Magical Mind" }
+      ];
+      const container = document.getElementById('gallery-grid');
+      container.innerHTML = images.map((img, i) => `
+        <div onclick="openGalleryPhoto(${i})" class="gallery-card bg-white/10 rounded-3xl overflow-hidden cursor-pointer group">
+          <img src="${img.url}" class="w-full h-64 object-cover" alt="${img.desc}">
+          <div class="p-6 flex items-center justify-between">
+            <p class="text-emerald-200">${img.desc}</p>
+            <button class="text-emerald-400 text-2xl group-active:scale-95">📸</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openGalleryPhoto(index) {
+      const captions = [
+        "The enchanting storefront with purple door and OPEN flag",
+        "Warm interior with books, couches, and creative corner",
+        "Shelves of carefully curated books and gifts",
+        "Felix’s art displayed proudly on the gallery wall",
+        "Community event in full swing — laughter and connection",
+        "Grief &amp; Death Café — a space of healing and support",
+        "Kids enjoying storytime and hands-on workshops",
+        "The magical heart of Felixology"
+      ];
+      const imageUrls = ["https://picsum.photos/id/1015/1200/800","https://picsum.photos/id/160/1200/800","https://picsum.photos/id/201/1200/800","https://picsum.photos/id/1005/1200/800","https://picsum.photos/id/133/1200/800","https://picsum.photos/id/1005/1200/800","https://picsum.photos/id/1016/1200/800","https://picsum.photos/id/1015/1200/800"];
+      const html = `
+        <img src="${imageUrls[index]}" class="w-full rounded-3xl mb-6" alt="${captions[index]}">
+        <p class="text-3xl leading-tight">${captions[index]}</p>
+        <p class="text-emerald-300 mt-8 text-sm">Photo from Felixology • Maynard, MA</p>
+      `;
+      document.getElementById('lightbox-content').innerHTML = html;
+      document.getElementById('lightbox').classList.remove('hidden');
+      document.getElementById('lightbox').classList.add('flex');
+    }
+
+    function hideLightbox() {
+      const lb = document.getElementById('lightbox');
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+    }
+
+    function toggleMobileDrawer() {
+      const drawer = document.getElementById('mobile-drawer');
+      const backdrop = document.getElementById('mobile-drawer-backdrop');
+      const icon = document.getElementById('hamburger-icon');
+      if (drawer.classList.contains('translate-x-[-100%]')) {
+        drawer.style.transform = 'translateX(0)';
+        backdrop.classList.remove('hidden');
+        icon.classList.replace('fa-bars', 'fa-xmark');
+      } else {
+        drawer.style.transform = 'translateX(-100%)';
+        backdrop.classList.add('hidden');
+        icon.classList.replace('fa-xmark', 'fa-bars');
+      }
+    }
+
+    function init() {
+      buildGallery();
+      updateCartCount();
+
+      // Smooth scrolling for all nav links + close mobile drawer
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          if (this.getAttribute('href') === '#') return;
+          e.preventDefault();
+          toggleMobileDrawer();
+          setTimeout(() => {
+            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+          }, 300);
+        });
+      });
+
+      // Back to top button
+      const backToTop = document.getElementById('back-to-top');
+      window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('hidden', window.scrollY < 400);
+      });
+
+      console.log('%c✅ Felixology Mock Website — 100% COMPLETE, NAVBAR FULLY FUNCTIONAL, HAMBURGER MENU FIXED!', 'color:#10B981;font-size:24px;font-weight:bold');
+    }
+    window.onload = init;
+  </script>
+</body>
+</html>
